@@ -99,7 +99,12 @@ function Main (props) {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-[40px] ml-[20px]">
+                    <div className="mt-[40px] h-[1152px] flex flex-wrap ml-[48px] mr-[48px] justify-between content-between">
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
                         <MainCard onShowMoney={props.onShowMoney} />
                     </div>
                     {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
