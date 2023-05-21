@@ -5,11 +5,11 @@ import map1 from '../../image/map1.png'
 function MapCard1 ({ onButtonClick }) {
     return (
         <div className="absolute">
-            <div className="absolute top-[80px] left-[700px]">
+            <div className="absolute top-[50px] left-[500px]">
                 <MapCard onButtonClick={onButtonClick} />
             </div>
-            <div className="relative left-[30px] top-[20px]">
-                <img className="h-[700px] " src={map1} />
+            <div className="relative left-[-30px] top-[0px]">
+                <img className="h-[500px] " src={map1} />
             </div>
         </div>
     )
