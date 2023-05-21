@@ -1,0 +1,11 @@
+{
+  "projects": {
+    "default": "russpassds"
+  },
+  "targets": {},
+  "etags": {
+    "russpassds": {
+      "extensionInstances": {}
+    }
+  }
+}
