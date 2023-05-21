@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import mainbg from '../image/bgmain.png'
 import MainCard from "./cards/maincards";
 import hotel from '../icons/hotel.png'
 import restoraunt from '../icons/resotaunt.png'
@@ -11,8 +10,9 @@ import directions from '../icons/directions.png'
 import Datepicker from "react-tailwindcss-datepicker";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import users from '../icons/users.png'
+import Nav from "./nav";
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -21,11 +21,11 @@ function classNames(...classes) {
 
 function Main (props) {
 
-    const [value, setValue] = useState({ 
+    const [value, setValue] = useState({
         startDate: new Date(), 
-        endDate: new Date().setMonth(11) 
+        endDate: new Date().setMonth(11)
         });
-        
+
 
     const handleValueChange = (newValue) => {
         console.log("newValue:", newValue); 
@@ -40,8 +40,8 @@ function Main (props) {
 
 
     return(
-        <div className="bg-cover bg-center min-h-[2000px] bg-[#F1E4CF] flex justify-center font-suisse">
-            <div className="bg-[#FFFBF3] w-[1320px] h-[1480px] rounded-[48px]">
+        <div className="bg-cover bg-center min-h-[2000px] bg-[#F1E4CF] flex flex-col justify-center items-center font-suisse">
+            <div className=" flex bg-[#FFFBF3] w-[1320px] h-[1480px] rounded-[48px]">
                 <div className="flex justify-center flex-col">
                     <div className=" h-[48px] w-[1106px] mt-[48px] ml-[106px] flex text-[16px] font-semibold">
                         <button className="bg-[#FAEFDB] rounded-[12px] mr-[12px] items-center h-[48px] w-[115px] flex"> <img src={hotel} className="mr-[8px] ml-[16px]" /> Отели</button>
@@ -99,11 +99,19 @@ function Main (props) {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-[40px] ml-[20px]">
+                    <div className="mt-[40px] h-[1152px] flex flex-wrap ml-[48px] mr-[48px] justify-between content-between">
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={props.onShowMoney} />
                         <MainCard onShowMoney={props.onShowMoney} />
                     </div>
                     {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                 </div>
+            </div>
+            <div className="flex h-[653px] w-[1320px] bg-[#FFFBF3] items-center justify-center mt-[40px] rounded-[48px]">
+                <Nav />
             </div>
         </div>
     )

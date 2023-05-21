@@ -38,13 +38,13 @@ function Nav ({ onButtonClick: onInterestsButtonClick }) {
 
     return (
         <div className="relative bg-cover bg-center h-[810px] flex flex-col items-center justify-center" onClick={onBackgroundClick}>
-            <h1 className="self-start mb-[39px] ml-[94px] font-proto text-[36px] font-semibold">Куда отправимся?</h1>
-            <div className="h-[726px] w-[1720px] bg-[#DBEFF8] rounded-[75px] relative">
-                <div className={`absolute h-[637.52px] w-[1620px] bg-black mx-[50px] my-[44px] rounded-[50px] bg-cover bg-center`} style={{ backgroundImage: `url(${mainmap})`, filter: isDarken ? 'brightness(70%)' : 'brightness(100%)' }}/>
+            <h1 className="selfcenter mb-[39px] font-proto text-[36px] font-semibold">Карта интересов</h1>
+            <div className="h-[479px] w-[1224px] rounded-[75px] relative flex justify-center items-center ">
+                <div className={`absolute h-[479px] w-[1224px] bg-black mx-[50px] my-[44px] rounded-[50px] bg-cover bg-center`} style={{ backgroundImage: `url(${mainmap})`, filter: isDarken ? 'brightness(70%)' : 'brightness(100%)' }}/>
                 <div className="h-[637.52px] w-[1620px] mx-[50px] my-[44px] rounded-[50px] justify-center items-center flex relative">
-                    <button className="mr-[200px] text-black" onClick={() => handleButtonClick('1')}>Европейская часть</button>
-                    <button className="mr-[200px] text-black" onClick={() => handleButtonClick('2')}>Центральная часть</button>
-                    <button className="mr-[200px] text-black" onClick={() => handleButtonClick('3')}>Якутия</button>
+                    <button className="mr-[100px] text-black" onClick={() => handleButtonClick('1')}>Европейская часть</button>
+                    <button className="mr-[100px] text-black" onClick={() => handleButtonClick('2')}>Центральная часть</button>
+                    <button className="mr-[100px] text-black" onClick={() => handleButtonClick('3')}>Якутия</button>
                     <button className="mr-[100px] text-black" onClick={() => handleButtonClick('4')}>Приморье</button>
                     {renderSelectedCard()}
                 </div>
