@@ -12,6 +12,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import users from '../icons/users.png'
 import Nav from "./nav";
+import mag from '../image/mag.png'
 
 
 function classNames(...classes) {
@@ -112,6 +113,55 @@ function Main (props) {
             </div>
             <div className="flex h-[653px] w-[1320px] bg-[#FFFBF3] items-center justify-center mt-[40px] rounded-[48px]">
                 <Nav />
+            </div>
+            <div className="h-[1240px] w-[1320px] bg-[#FFFBF3] mt-[40px] rounded-[48px] flex flex-col items-center">
+                <div className="mt-[24px]">
+                    <img className="mt-[32px] mb-[12px]" src={mag} />
+                </div>
+                <div className="h-[1034px] w-[1224px] mt-[24px]">
+                    <div className="flex items-center justify-center">
+                        <div className=" flex flex-col items-center h-[392px] w-[288px] bg-white mr-[24px]">
+                            <img />
+                            <p>спецпроект</p>
+                            <h1>Путешествие по полуострову влюбленных</h1>
+                        </div>
+                        <div className=" flex flex-col items-center h-[522px] w-[496px] bg-white">
+                            <img />
+                            <p>Природа</p>
+                            <h1>Авторский маршрут "Японцы в Москве"</h1>
+                        </div>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white ml-[24px]">
+                            <img />
+                            <p>Природа</p>
+                            <h1>Путешествуем по Липецкой области</h1>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-center mt-[48px] gap-[24px]">
+                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
+                            <img />
+                            <p>Природа</p>
+                            <h1>Путешествие по полуострову влюбленных</h1>
+                        </div>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
+                            <img />
+                            <p>Природа</p>
+                            <h1>Путешествуем по Липецкой области</h1>
+                        </div>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
+                            <img />
+                            <p>Природа</p>
+                            <h1>День во Владикавказе: горы, трамваи и полеты</h1>
+                        </div>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
+                            <img />
+                            <p>Природа</p>
+                            <h1>Круиз через Беломорканал</h1>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-[1224px] h-[72px] flex items-start justify-center">
+                    <button className="h-[48px] w-[392px] bg-[#F1E4CF] rounded-[12px]">Показать все</button>
+                </div>
             </div>
         </div>
     )
