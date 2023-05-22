@@ -13,6 +13,15 @@ import { Menu, Transition } from '@headlessui/react'
 import users from '../icons/users.png'
 import Nav from "./nav";
 import mag from '../image/mag.png'
+import mag1 from '../image/mag1.png'
+import mag2 from '../image/mag2.png'
+import mag3 from '../image/mag3.png'
+import mag4 from '../image/mag4.png'
+import mag5 from '../image/mag5.png'
+import mag6 from '../image/mag6.png'
+import mag7 from '../image/mag7.png'
+import QR from '../image/QR.png'
+import phones from '../image/phones.png'
 
 
 function classNames(...classes) {
@@ -120,47 +129,57 @@ function Main (props) {
                 </div>
                 <div className="h-[1034px] w-[1224px] mt-[24px]">
                     <div className="flex items-center justify-center">
-                        <div className=" flex flex-col items-center h-[392px] w-[288px] bg-white mr-[24px]">
-                            <img />
-                            <p>спецпроект</p>
-                            <h1>Путешествие по полуострову влюбленных</h1>
+                        <div className=" flex flex-col items-center h-[392px] w-[288px] mr-[24px] text-center">
+                            <img className="mt-[16px]" src={mag1} />
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Cпецпроект</p>
+                            <h1 className="text-[20px] font-semibold">Путешествие по полуострову влюбленных</h1>
                         </div>
-                        <div className=" flex flex-col items-center h-[522px] w-[496px] bg-white">
-                            <img />
-                            <p>Природа</p>
-                            <h1>Авторский маршрут "Японцы в Москве"</h1>
+                        <div className=" flex flex-col items-center h-[522px] w-[496px] text-center">
+                            <img className="" src={mag2}/>
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Природа</p>
+                            <h1 className="text-[20px] font-semibold">Авторский маршрут "Японцы в Москве"</h1>
                         </div>
-                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white ml-[24px]">
-                            <img />
-                            <p>Природа</p>
-                            <h1>Путешествуем по Липецкой области</h1>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] ml-[24px] text-center">
+                            <img className="mt-[16px]" src={mag3}/>
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Природа</p>
+                            <h1 className="text-[20px] font-semibold">Путешествуем по Липецкой области</h1>
                         </div>
                     </div>
                     <div className="flex items-center justify-center mt-[48px] gap-[24px]">
-                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
-                            <img />
-                            <p>Природа</p>
-                            <h1>Путешествие по полуострову влюбленных</h1>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] text-center">
+                            <img className="mt-[16px]" src={mag4}/>
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Природа</p>
+                            <h1 className="text-[20px] font-semibold">Путешествие по полуострову влюбленных</h1>
                         </div>
-                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
-                            <img />
-                            <p>Природа</p>
-                            <h1>Путешествуем по Липецкой области</h1>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] text-center">
+                            <img className="mt-[16px]" src={mag5}/>
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Природа</p>
+                            <h1 className="text-[20px] font-semibold">Путешествуем по Липецкой области</h1>
                         </div>
-                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
-                            <img />
-                            <p>Природа</p>
-                            <h1>День во Владикавказе: горы, трамваи и полеты</h1>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] text-center">
+                            <img className="mt-[16px]" src={mag6}/>
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Природа</p>
+                            <h1 className="text-[20px] font-semibold">День во Владикавказе: горы, трамваи и полеты</h1>
                         </div>
-                        <div className="flex flex-col items-center h-[392px] w-[288px] bg-white">
-                            <img />
-                            <p>Природа</p>
-                            <h1>Круиз через Беломорканал</h1>
+                        <div className="flex flex-col items-center h-[392px] w-[288px] text-center">
+                            <img className="mt-[16px]" src={mag7}/>
+                            <p className="mt-[24px] text-[14px] text-[#007470] font-semibold">Природа</p>
+                            <h1 className="text-[20px] font-semibold">Круиз через Беломорканал</h1>
                         </div>
                     </div>
                 </div>
                 <div className="w-[1224px] h-[72px] flex items-start justify-center">
-                    <button className="h-[48px] w-[392px] bg-[#F1E4CF] rounded-[12px]">Показать все</button>
+                    <button className="h-[48px] w-[392px] bg-[#F1E4CF] rounded-[12px] text-[16px] font-semibold">Показать все</button>
+                </div>
+            </div>
+            <div className="w-[1320px] h-[845px] bg-[#FFFBF3] mt-[40px] rounded-[48px] flex items-center justify-center">
+                <div className="h-[652px] w-[499px] mr-[127px]">
+                    <img src={phones}/>
+                </div>
+                <div className="h-[626px] w-[413px]">
+                    <h1 className="text-[32px] font-semibold">RUSSPASS<br/>Ваш личный помощник в путешествиях по России</h1>
+                    <p className="text-[16px] font-semibold text-[#959595]">Сним вы сможите спланировать поездку, найти интерестные места, купить авиа- и ж/д билеты, забронировать гостиницу и столик в ресторане</p>
+                    <img className="mt-[32px]" src={QR}/>
                 </div>
             </div>
         </div>
