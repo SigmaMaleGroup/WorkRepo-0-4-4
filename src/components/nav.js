@@ -4,6 +4,7 @@ import MapCard1 from "./mapcards/mapcard1";
 import MapCard2 from "./mapcards/mapcard2";
 import MapCard3 from "./mapcards/mapcard3";
 import MapCard4 from "./mapcards/mapcard4";
+import kartasvg1 from '../image/kartasvg1.svg'
 import '../App.css'
 
 function Nav ({ onButtonClick: onInterestsButtonClick }) {
