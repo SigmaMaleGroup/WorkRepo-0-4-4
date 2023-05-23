@@ -2,12 +2,12 @@ import React from "react";
 
 function InterestsCard (props) {
     return (
-        <div className="h-[372px] w-[515px] ml-[103px] mt-[52px]">
+        <div className="h-[263px] w-[362px] flex flex-col">
             <div>
                 <img src={props.img}/>
             </div>
-            <div>
-                <button className="bg-[#FFCF08] w-[515px] h-[70px] rounded-[20px] mt-[30px] font-roboto font-semibold text-[26px] ">{props.buttonname}</button>
+            <div className="flex mt-[23px]">
+                <button className="bg-[#FFCF08] w-[362px] h-[48px] rounded-[20px] font-roboto font-semibold text-[16px] ">{props.buttonname}</button>
             </div>
         </div>
     )

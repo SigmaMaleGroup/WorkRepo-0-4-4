@@ -5,11 +5,13 @@ import Main from './components/main';
 import Footer from './components/footer';
 import Interests from './components/interests';
 import Banner from './components/banner';
-import Money from './components/money'; // Убедитесь, что вы импортируете Money компонент
+import Plan from './components/money'; // Убедитесь, что вы импортируете Money компонент
+import MainPage from './components/mainpage';
 
 function App() {
   const [showInterests, setShowInterests] = useState(false);
   const [showMoney, setShowMoney] = useState(false); // Добавьте новое состояние
+  const [showMainPage, setShowMainPage] = useState(false);
 
   useEffect(() => {
     setShowInterests(localStorage.getItem('showInterests') === "true");
@@ -31,12 +33,20 @@ function App() {
     setShowMoney(true);
   };
 
+  const handleShowMainPage = () => {
+    setShowMainPage(true);
+  };
+
   if (showInterests) {
     return <Interests />;
   }
 
   if (showMoney) { // Если showMoney = true, показываем только Money компонент
-    return <Money />;
+    return <Plan />;
+  }
+
+  if (showMainPage) {
+    return <MainPage />;
   }
 
   return (
@@ -44,7 +54,7 @@ function App() {
       <Header onLogoClick={handleLogoClick} />
       <Banner />
       {/* <Nav onButtonClick={handleButtonClick} /> */}
-      <Main onShowMoney={handleShowMoney} /> {/* Прокидываем функцию в Main компонент */}
+      <Main onShowMainPage={handleShowMainPage} onShowMoney={handleShowMoney} onButtonClick={handleButtonClick} />
       <Footer />
     </div>
   );

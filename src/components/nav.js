@@ -43,7 +43,7 @@ function Nav ({ onButtonClick: onInterestsButtonClick }) {
             <div className="h-[479px] w-[1224px] rounded-[75px] relative flex justify-center items-center ">
                 <div className={`absolute h-[479px] w-[1224px] bg-black mx-[50px] my-[44px] rounded-[50px] bg-cover bg-center`} style={{ backgroundImage: `url(${mainmap})`, filter: isDarken ? 'brightness(70%)' : 'brightness(100%)' }}/>
                 <div className="h-[637.52px] w-[1620px] mx-[50px] my-[44px] rounded-[50px] justify-center items-center flex relative">
-                    <button className="mr-[100px] text-black" onClick={() => handleButtonClick('1')}>Европейская часть</button>
+                    <button className="mr-[100px] relative right-[40px] bottom-[15px] text-black" onClick={() => handleButtonClick('1')}><img className="h-[637.52px]" src={kartasvg1}/></button>
                     <button className="mr-[100px] text-black" onClick={() => handleButtonClick('2')}>Центральная часть</button>
                     <button className="mr-[100px] text-black" onClick={() => handleButtonClick('3')}>Якутия</button>
                     <button className="mr-[100px] text-black" onClick={() => handleButtonClick('4')}>Приморье</button>

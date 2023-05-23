@@ -7,11 +7,11 @@ import rus from '../icons/rus.png'
 import support from '../icons/support.png'
 import favorite from '../icons/favorite.png'
 import profile from '../icons/profile.png'
-function Header () {
 
+function Header2 () {
 
     return(
-        <div className="h-[72px] flex items-center justify-center font-roboto bg-[#F1E4CF]">
+        <div className="h-[72px] flex items-center justify-center font-roboto bg-[#FFFBF3]">
             <div className="flex justify-between w-[1440px]">
                 <div className="flex items-center ">
                     <a href="/" className="w-[60px] h-[40px]" ><img src={logo2} className=" w-[40px] h-[40px]"/></a>
@@ -30,4 +30,4 @@ function Header () {
     )
 }
 
-export default Header;
+export default Header2;

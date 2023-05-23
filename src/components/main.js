@@ -29,7 +29,7 @@ function classNames(...classes) {
 }
 
 
-function Main (props) {
+function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
 
     const [value, setValue] = useState({
         startDate: new Date(), 
@@ -105,23 +105,23 @@ function Main (props) {
                                 </Transition>
                             </Menu>
                             <div>
-                                <button className="h-[48px] w-[83px] rounded-[12px] bg-[#FFCF08] font-semibold">Найти</button>
+                                <button onClick={onShowMainPage} className="h-[48px] w-[83px] rounded-[12px] bg-[#FFCF08] font-semibold">Найти</button>
                             </div>
                         </div>
                     </div>
                     <div className="mt-[40px] h-[1152px] flex flex-wrap ml-[48px] mr-[48px] justify-between content-between">
-                        <MainCard onShowMoney={props.onShowMoney} />
-                        <MainCard onShowMoney={props.onShowMoney} />
-                        <MainCard onShowMoney={props.onShowMoney} />
-                        <MainCard onShowMoney={props.onShowMoney} />
-                        <MainCard onShowMoney={props.onShowMoney} />
-                        <MainCard onShowMoney={props.onShowMoney} />
+                        <MainCard onShowMoney={onShowMoney} />
+                        <MainCard onShowMoney={onShowMoney} />
+                        <MainCard onShowMoney={onShowMoney} />
+                        <MainCard onShowMoney={onShowMoney} />
+                        <MainCard onShowMoney={onShowMoney} />
+                        <MainCard onShowMoney={onShowMoney} />
                     </div>
                     {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                 </div>
             </div>
             <div className="flex h-[653px] w-[1320px] bg-[#FFFBF3] items-center justify-center mt-[40px] rounded-[48px]">
-                <Nav />
+                <Nav onButtonClick={onButtonClick}/>
             </div>
             <div className="h-[1240px] w-[1320px] bg-[#FFFBF3] mt-[40px] rounded-[48px] flex flex-col items-center">
                 <div className="mt-[24px]">

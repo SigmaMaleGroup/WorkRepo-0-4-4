@@ -24,6 +24,9 @@ module.exports = {
         'extra-bold': '800',
         black: '900',
       },
+      boxShadow: {
+        'mp': '0px 12px 16px rgba(0, 0, 0, 0.04)'
+      }
     },
   },
   plugins: [],

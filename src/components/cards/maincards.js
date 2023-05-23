@@ -7,9 +7,8 @@ import food from '../../icons/food.png'
 import comfort from '../../icons/comfort.png'
 import heart from '../../icons/heart.png'
 
-function MainCard (props) {
+function MainCard ({onShowMoney}) {
     // Используем состояние для отслеживания того, отображается ли компонент Money
-    const [showMoney, setShowMoney] = useState(false);
 
     return (
         <div className="bg-[#FFFBF3] w-[392px] h-[560px] rounded-[20px] border-[2px] border-[#FAEFDB]">
@@ -41,7 +40,7 @@ function MainCard (props) {
                     </div>
                 </div>
                 <div className="flex justify-start items-center mt-[23px] ml-[2px]">
-                    <button className="bg-[#FFCF08] w-[334px] h-[48px] rounded-l-[20px] rounded-r-[4px] font-roboto font-medium" onClick={props.onShowMoney}>
+                    <button className="bg-[#FFCF08] w-[334px] h-[48px] rounded-l-[20px] rounded-r-[4px] font-roboto font-medium" onClick={onShowMoney}>
                         <p className="text-[16px] leading-[22px] font-semibold">25 000₽ за 5 дней</p>
                         <p className="text-[14px] leading-[16px] font-semibold text-[#959595]">Посмотреть</p>
                     </button>
