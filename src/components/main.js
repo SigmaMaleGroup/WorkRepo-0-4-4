@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { changePage } from './redux/createslice';
 import MainCard from "./cards/maincards";
 import hotel from '../icons/hotel.png'
 import restoraunt from '../icons/resotaunt.png'
@@ -31,6 +33,21 @@ function classNames(...classes) {
 
 function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
 
+    // какая страница
+    const dispatch = useDispatch();
+
+    const handlePageChange = (newPage) => {
+        console.log('Setting new page:', newPage);
+        localStorage.setItem('currentPage', newPage);
+        dispatch(changePage(newPage));
+      };
+
+    const handleClick = () => {
+        onShowMainPage();
+        handlePageChange('mainPage'); // или любое другое имя страницы
+      };
+
+    // ебань для выбора даты
     const [value, setValue] = useState({
         startDate: new Date(), 
         endDate: new Date().setMonth(11)
@@ -42,6 +59,7 @@ function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
         setValue(newValue); 
     }
 
+    // селектор сколько людей
     const [selectedOption, setSelectedOption] = useState("Количество людей");
 
     const handleSelect = (option) => {
@@ -105,7 +123,7 @@ function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
                                 </Transition>
                             </Menu>
                             <div>
-                                <button onClick={onShowMainPage} className="h-[48px] w-[83px] rounded-[12px] bg-[#FFCF08] font-semibold">Найти</button>
+                                <button onClick={handleClick} className="h-[48px] w-[83px] rounded-[12px] bg-[#FFCF08] font-semibold">Найти</button>
                             </div>
                         </div>
                     </div>
