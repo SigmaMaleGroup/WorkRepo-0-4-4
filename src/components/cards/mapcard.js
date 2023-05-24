@@ -1,5 +1,6 @@
 import React from "react";
 import mapcardimg from '../../image/mapcardimg.png'
+import { Link } from "react-router-dom";
 
 function MapCard ({onButtonClick}) {
     return (
@@ -15,7 +16,7 @@ function MapCard ({onButtonClick}) {
                     </div>
                 </div>
                 <div className="mt-[10px] jusify-center">
-                <button className="w-[337px] h-[76px] rounded-[50px] bg-[#FFCF08] text-[28px] font-semibold" onClick={onButtonClick}>Продолжить →</button>
+                <button className="w-[337px] h-[76px] rounded-[50px] bg-[#FFCF08] text-[28px] font-semibold"><Link to="/interests">Продолжить →</Link></button>
                 </div>
             </div>
         </div>

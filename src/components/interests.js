@@ -12,6 +12,7 @@ import it6 from '../image/it6.png'
 import it7 from '../image/it7.png'
 import it8 from '../image/it8.png'
 import it9 from '../image/it9.png'
+import { Link } from "react-router-dom";
 
 function Interests () {
     return (
@@ -50,7 +51,7 @@ function Interests () {
                             </div>
                         </div>
                         <div className="ml-[48px] mt-[40px]">
-                            <button className="w-[362px] h-[70px] bg-[#FFCF08] rounded-[20px] font-roboto text-[30px] font-semibold">Продолжить&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</button>
+                            <button className="w-[362px] h-[70px] bg-[#FFCF08] rounded-[20px] font-roboto text-[30px] font-semibold"><Link to="/mainpage">Продолжить&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</Link></button>
                         </div>
                     </div>
                 </div>

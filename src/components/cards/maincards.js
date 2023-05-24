@@ -6,6 +6,7 @@ import price from '../../icons/price.png'
 import food from '../../icons/food.png'
 import comfort from '../../icons/comfort.png'
 import heart from '../../icons/heart.png'
+import { Link } from "react-router-dom";
 
 function MainCard ({onShowMoney}) {
     // Используем состояние для отслеживания того, отображается ли компонент Money
@@ -41,8 +42,10 @@ function MainCard ({onShowMoney}) {
                 </div>
                 <div className="flex justify-start items-center mt-[23px] ml-[2px]">
                     <button className="bg-[#FFCF08] w-[334px] h-[48px] rounded-l-[20px] rounded-r-[4px] font-roboto font-medium" onClick={onShowMoney}>
-                        <p className="text-[16px] leading-[22px] font-semibold">25 000₽ за 5 дней</p>
-                        <p className="text-[14px] leading-[16px] font-semibold text-[#959595]">Посмотреть</p>
+                        <Link to="/money">
+                            <p className="text-[16px] leading-[22px] font-semibold">25 000₽ за 5 дней</p>
+                            <p className="text-[14px] leading-[16px] font-semibold text-[#959595]">Посмотреть</p>
+                        </Link>
                     </button>
                     <button className="items-center ml-[2px] h-[48px] w-[48px] bg-[#FAEFDB] rounded-r-[20px] rounded-l-[4px]"><img className="ml-[12px]" src={heart} /></button>
                 </div>
