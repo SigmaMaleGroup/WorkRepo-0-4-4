@@ -1,62 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Header from './components/header';
-import Nav from './components/nav';
-import Main from './components/main';
+import Banner from './components/banner';
 import Footer from './components/footer';
 import Interests from './components/interests';
-import Banner from './components/banner';
-import Plan from './components/money'; // Убедитесь, что вы импортируете Money компонент
+import Plan from './components/money';
 import MainPage from './components/mainpage';
+import Favorite from './components/fovorite';
 
 function App() {
-  const [showInterests, setShowInterests] = useState(false);
-  const [showMoney, setShowMoney] = useState(false); // Добавьте новое состояние
-  const [showMainPage, setShowMainPage] = useState(false);
-
-  useEffect(() => {
-    setShowInterests(localStorage.getItem('showInterests') === "true");
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('showInterests', showInterests);
-  }, [showInterests]);
-
-  const handleButtonClick = () => {
-    setShowInterests(true);
-  };
-
-  const handleLogoClick = () => {
-    setShowInterests(false);
-  };
-
-  const handleShowMoney = () => { // Эта функция будет менять состояние showMoney
-    setShowMoney(true);
-  };
-
-  const handleShowMainPage = () => {
-    setShowMainPage(true);
-  };
-
-  if (showInterests) {
-    return <Interests />;
-  }
-
-  if (showMoney) { // Если showMoney = true, показываем только Money компонент
-    return <Plan />;
-  }
-
-  if (showMainPage) {
-    return <MainPage />;
-  }
-
   return (
-    <div className="m-0 p-0 ">
-      <Header onLogoClick={handleLogoClick} />
-      <Banner />
-      {/* <Nav onButtonClick={handleButtonClick} /> */}
-      <Main onShowMainPage={handleShowMainPage} onShowMoney={handleShowMoney} onButtonClick={handleButtonClick} />
-      <Footer />
-    </div>
+    <Router>
+      <div className="m-0 p-0 ">
+        <Header />
+        <Banner />
+        <Switch>
+          <Route path="/interests">
+            <Interests />
+          </Route>
+          <Route path="/money">
+            <Plan />
+          </Route>
+          <Route path="/main">
+            <MainPage />
+          </Route>
+          <Route path="/favorite">
+            <Favorite />
+          </Route>
+          <Route path="/">
+            {/* The component shown when no other routes match */}
+          </Route>
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

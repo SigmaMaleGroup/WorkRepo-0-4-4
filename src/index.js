@@ -11,7 +11,7 @@ import { store, persistor } from '../src/components/redux/store'; // or wherever
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store} persistor={persistor}>
+  <Provider store={store} >
     <PersistGate loading={null} persistor={persistor}>
       <App />
     </PersistGate>

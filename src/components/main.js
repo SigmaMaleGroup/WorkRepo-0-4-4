@@ -31,7 +31,7 @@ function classNames(...classes) {
 }
 
 
-function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
+function Main ({ onButtonClick, onShowMoney, onShowMainPage, onShowFavorite}) {
 
     // какая страница
     const dispatch = useDispatch();
@@ -46,6 +46,7 @@ function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
         onShowMainPage();
         handlePageChange('mainPage'); // или любое другое имя страницы
       };
+
 
     // ебань для выбора даты
     const [value, setValue] = useState({
@@ -77,7 +78,7 @@ function Main ({ onButtonClick, onShowMoney, onShowMainPage}) {
                         <button className="bg-[#FAEFDB] rounded-[12px] mr-[12px] items-center h-[48px] w-[116px] flex"><img src={museum} className="mr-[8px] ml-[16px]" />Музеи</button>
                         <button className="bg-[#FAEFDB] rounded-[12px] mr-[12px] items-center h-[48px] w-[152px] flex"><img src={excursion} className="mr-[8px] ml-[16px]" />Экскурсии</button>
                         <button className="bg-[#FAEFDB] rounded-[12px] mr-[12px] items-center h-[48px] w-[164px] flex"><img src={avia} className="mr-[8px] ml-[16px]" />Авиабилеты</button>
-                        <button className="bg-[#FAEFDB] rounded-[12px] mr-[12px] items-center h-[48px] w-[160px] flex"><img src={train} className="mr-[8px] ml-[16px]" />Ж/Д билеты</button>
+                        <button className="bg-[#FAEFDB] rounded-[12px] mr-[12px] items-center h-[48px] w-[160px] flex" onClick={onShowFavorite}><img src={train} className="mr-[8px] ml-[16px]" />Ж/Д билеты</button>
                         <button className="bg-[#FAEFDB]  rounded-[12px] items-center h-[48px] w-[174px] flex border-[2px] border-[#FFCF08]"><img src={directions} className="mr-[8px] ml-[16px]" />Направления</button>
                     </div>
                     <div className="flex justify-center mt-[16px]" >
