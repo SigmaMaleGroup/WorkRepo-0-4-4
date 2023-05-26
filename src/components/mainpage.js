@@ -93,10 +93,7 @@ function MainPage () {
                                 </div>
                             </div>
                             <div className="mt-[24px] h-[72px] w-[301px] ">
-                                <div className="h-[72px] w-[260px] bg-white">
-            
-                                </div>
-                            </div>
+                            </div> 
                             <button className="mt-[48px] w-[301px] h-[50px] bg-[#FFCF08] rounded-[12.5px] text-[22px] font-semibold">Найти</button>
                         </div>
                     </div>
