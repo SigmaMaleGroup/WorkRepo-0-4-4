@@ -8,6 +8,7 @@ import add from '../icons/add.png'
 import PlanDay from "./plan/planday";
 import More1 from "./more/more1";
 import planmap from '../image/planmap.png'
+import { useLocation } from 'react-router-dom';
 
 class YandexMap extends Component {
     map = null;
@@ -20,7 +21,7 @@ class YandexMap extends Component {
       const {ymaps} = window;
       ymaps.ready().then(() => {
         this.map = new ymaps.Map("map", {
-          center: [55.76, 37.64], // Coordinates for Moscow, change to your desired location
+          center: this.props.data, // Coordinates for Moscow, change to your desired location
           zoom: 7
         });
       });
@@ -37,6 +38,9 @@ class YandexMap extends Component {
 function Plan() {
     const [showMore, setShowMore] = useState(false);
     const moreRef = useRef();
+    const location = useLocation();
+    const data = location.state?.data;
+    console.log(data)
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -104,7 +108,7 @@ function Plan() {
                             </div>
                         </div>
                         <div className="h-[600px] w-[600px] mt-[44px]">
-                            <YandexMap />
+                            <YandexMap data={data}/>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { changePage } from './redux/createslice';
 import MainCard from "./cards/maincards";
+import mainimgts from '../image/mainimgts.png'
 import hotel from '../icons/hotel.png'
 import restoraunt from '../icons/resotaunt.png'
 import museum from '../icons/museum.png'
@@ -28,7 +29,8 @@ import { Link } from "react-router-dom";
 import Header from "./header";
 import Banner from "./banner";
 import Footer from "./footer";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { getFirestore, collection, getDocs, query, where} from 'firebase/firestore';
 
 
 function classNames(...classes) {
@@ -46,10 +48,19 @@ function Main ({ app, onShowMainPage}) {
           var indeces = []
           for (var i = 0; i < 6; i++){
             var randomIndex = Math.floor(Math.random() * tours.length);
-            //var randomCity = tours[randomIndex]?.dictionary_data?.city || '';
+            var city_id = tours[randomIndex]?.dictionary_data?.city || '';
+            const city_data = await getCity(db, city_id);
+            var randomCity = city_data[0];
+            var randomCoords = city_data[1];
             var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
             var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
-            indeces.push([randomTitle, randomPrice])
+            var randomDays = tours[randomIndex]?.dictionary_data?.days || '';
+            var img_id = '62a1aa9ab076bd79ea7a45a3.jpeg';
+            const storage = getStorage();
+            const imageRef = ref(storage, `images/${img_id}`);
+            const imgUrl = await getDownloadURL(imageRef);
+
+            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords])
           }
     
           setTour(indeces);
@@ -57,6 +68,24 @@ function Main ({ app, onShowMainPage}) {
     
         fetchData();
       }, []);
+    
+      async function getCity(db, id) {
+        const citiesRef = collection(db, "cities");
+        const q = query(citiesRef, where("_id.$oid", "==", id));
+        const querySnapshot = await getDocs(q);
+        
+        let city = null;
+        let city_coord = [];
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          const data = doc.data();
+          city = data?.dictionary_data?.title
+          city_coord = data?.dictionary_data?.geo_data?.coordinates
+          console.log(city_coord)
+        }
+        
+        return [city, city_coord];
+      }
 
     async function getTours(db) {
         const toursCol = collection(db, 'tours');
@@ -175,8 +204,11 @@ function Main ({ app, onShowMainPage}) {
                                 Array.from({ length: 6 }, (_, index) => (
                                     <MainCard 
                                         maincardtitle={tour[index][0]} 
-                                        maincardsity={''} 
-                                        maincardprice={tour[index][1]} 
+                                        maincardsity={tour[index][1]} 
+                                        maincardprice={tour[index][2]} 
+                                        maincardday={tour[index][3]}
+                                        maincardimg={tour[index][4]}
+                                        maincardcoord={tour[index][5]}
                                     />
                                 ))
                             ) : (
