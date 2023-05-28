@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { changePage } from './redux/createslice';
 import MainCard from "./cards/maincards";
@@ -28,6 +28,7 @@ import { Link } from "react-router-dom";
 import Header from "./header";
 import Banner from "./banner";
 import Footer from "./footer";
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 
 function classNames(...classes) {
@@ -35,7 +36,34 @@ function classNames(...classes) {
 }
 
 
-function Main ({ onShowMainPage}) {
+function Main ({ app, onShowMainPage}) {
+    const [tour, setTour] = useState([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          const db = getFirestore(app);
+          const tours = await getTours(db);
+          var indeces = []
+          for (var i = 0; i < 6; i++){
+            var randomIndex = Math.floor(Math.random() * tours.length);
+            //var randomCity = tours[randomIndex]?.dictionary_data?.city || '';
+            var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
+            var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
+            indeces.push([randomTitle, randomPrice])
+          }
+    
+          setTour(indeces);
+        };
+    
+        fetchData();
+      }, []);
+
+    async function getTours(db) {
+        const toursCol = collection(db, 'tours');
+        const tourSnapshot = await getDocs(toursCol);
+        const tourList = tourSnapshot.docs.map(doc => doc.data());
+        return tourList;
+      }
 
 
     const [buttonsPressed, setButtonsPressed] = useState([]);
@@ -56,11 +84,6 @@ function Main ({ onShowMainPage}) {
         console.log('Setting new page:', newPage);
         localStorage.setItem('currentPage', newPage);
         dispatch(changePage(newPage));
-      };
-
-    const handleClick = () => {
-        onShowMainPage();
-        handlePageChange('mainPage'); // или любое другое имя страницы
       };
 
 
@@ -148,12 +171,17 @@ function Main ({ onShowMainPage}) {
                             </div>
                         </div>
                         <div className="mt-[40px] h-[1152px] flex flex-wrap ml-[48px] mr-[48px] justify-between content-between">
-                            <MainCard maincardtitle="" maincardsity="" maincard="" />
-                            <MainCard  />
-                            <MainCard  />
-                            <MainCard  />
-                            <MainCard  />
-                            <MainCard  />
+                        {tour.length > 0 ? (
+                                Array.from({ length: 6 }, (_, index) => (
+                                    <MainCard 
+                                        maincardtitle={tour[index][0]} 
+                                        maincardsity={''} 
+                                        maincardprice={tour[index][1]} 
+                                    />
+                                ))
+                            ) : (
+                                <div>Loading...</div>
+                            )}
                         </div>
                         {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                     </div>
