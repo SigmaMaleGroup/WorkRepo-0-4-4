@@ -3,7 +3,7 @@ import MapCard from "../cards/mapcard";
 import map1 from '../../image/map1.png'
 import mapimg1 from '../../image/mapimg1.png'
 
-function MapCard1 ({ onButtonClick }, props) {
+function MapCard1 (onButtonClick, mpcrimg, mpcrheader, mpcrpar) {
     return (
         <div className="absolute">
             <div className="absolute top-[50px] left-[500px]">

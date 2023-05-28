@@ -29,13 +29,13 @@ function Nav ({ onButtonClick, onContinueClick }) {
 
     const renderSelectedCard = () => {
         switch (selectedCardId) {
-            case '1':
+            case '0':
                 return <MapCard1 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
-            case '2':
+            case '1':
                 return <MapCard2 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
-            case '3':
+            case '2':
                 return <MapCard3 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
-            case '4':
+            case '3':
                 return <MapCard4 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
             default:
                 return null;
