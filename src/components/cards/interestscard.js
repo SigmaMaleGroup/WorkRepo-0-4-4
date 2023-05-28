@@ -4,8 +4,8 @@ function InterestsCard (props) {
     const [selected, setSelected] = useState(false);
     
     const onButtonClick = () => {
-        props.onButtonClick(props.buttonname, props.index);
-      }
+        props.onButtonClick(props.buttonname, props.buttonIndex);
+    }
 
     useEffect(() => {
         setSelected(props.selected);

@@ -14,38 +14,49 @@ import it8 from '../image/it8.png'
 import it9 from '../image/it9.png'
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useLocation } from 'react-router-dom';
 
-function Interests({ onButtonClick }) {
+function Interests(props) {
+
+    const location = useLocation();
+    const initialButtonsArray = location.state ? location.state.clickedButtonsArray : [];
 
     const [selectedButton1, setSelectedButton1] = useState(null);
     const [selectedButton2, setSelectedButton2] = useState(null);
     const [selectedButton3, setSelectedButton3] = useState(null);
-    const [clickedButtonsArray, setClickedButtonsArray] = useState([]);
+    const [clickedButtonsArray, setClickedButtonsArray] = useState(initialButtonsArray);
 
-    const handleButtonClick1 = (buttonIndex) => {
+    const [tempButton1, setTempButton1] = useState(null);
+    const [tempButton2, setTempButton2] = useState(null);
+    const [tempButton3, setTempButton3] = useState(null);
+
+    const handleButtonClick1 = (buttonName, buttonIndex) => {
         setSelectedButton1(buttonIndex);
-        let newArr = [...clickedButtonsArray];
-        newArr.push({ group: 0, button: buttonIndex });
-        setClickedButtonsArray(newArr);
+        setTempButton1({ group: 0, button: buttonIndex, name: buttonName });
     }
-
-    const handleButtonClick2 = (buttonIndex) => {
+    
+    const handleButtonClick2 = (buttonName, buttonIndex) => {
         setSelectedButton2(buttonIndex);
-        let newArr = [...clickedButtonsArray];
-        newArr.push({ group: 1, button: buttonIndex });
-        setClickedButtonsArray(newArr);
+        setTempButton2({ group: 1, button: buttonIndex, name: buttonName });
     }
-
-    const handleButtonClick3 = (buttonIndex) => {
+    
+    const handleButtonClick3 = (buttonName, buttonIndex) => {
         setSelectedButton3(buttonIndex);
-        let newArr = [...clickedButtonsArray];
-        newArr.push({ group: 2, button: buttonIndex });
-        setClickedButtonsArray(newArr);
+        setTempButton3({ group: 2, button: buttonIndex, name: buttonName });
     }
+    
 
     const onContinueClick = () => {
-        console.log(clickedButtonsArray);
+        setClickedButtonsArray(oldArray => {
+            let newArr = [...oldArray];
+            if (tempButton1) newArr.push(tempButton1);
+            if (tempButton2) newArr.push(tempButton2);
+            if (tempButton3) newArr.push(tempButton3);
+            console.log(newArr);
+            return newArr;
+        });
     }
+    
 
     return (
         <div>

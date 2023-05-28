@@ -10,17 +10,22 @@ import kartasvg2 from '../image/kartasvg2.svg'
 import '../App.css'
 import flag from '../icons/flag.png'
 
-function Nav ({ onButtonClick, onContinueClick }) {
+function Nav ({ onButtonClick }) {
     const [selectedCardId, setSelectedCardId] = useState(null);
     const [isDarken, setDarken] = useState(false);
+    const [selectedButtonTemp, setSelectedButtonTemp] = useState(null);
 
     const handleButtonClick = (cardId) => {
         setSelectedCardId(cardId);
         setDarken(true);
-        onButtonClick(Number(cardId) - 1); // Обратите внимание, что cardId взято в кавычки - это строка. Мы вычитаем 1, чтобы получить индекс в массиве (начиная с 0).
-      }
-    
+        setSelectedButtonTemp(Number(cardId));
+        onButtonClick(Number(cardId) - 1);
+    }
 
+    const onContinueClick = () => {
+        console.log(selectedButtonTemp);
+    }
+    
     const onBackgroundClick = (event) => {
         if (event.target !== event.currentTarget) return;
         setSelectedCardId(null);
