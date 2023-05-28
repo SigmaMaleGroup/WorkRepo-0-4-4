@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Component} from "react";
 import Header2 from "./header2";
 import Footer2 from "./footer2";
 import arrow from '../icons/arrow.png'
@@ -8,6 +8,31 @@ import add from '../icons/add.png'
 import PlanDay from "./plan/planday";
 import More1 from "./more/more1";
 import planmap from '../image/planmap.png'
+
+class YandexMap extends Component {
+    map = null;
+  
+    componentDidMount() {
+      this.initMap();
+    }
+  
+    initMap = () => {
+      const {ymaps} = window;
+      ymaps.ready().then(() => {
+        this.map = new ymaps.Map("map", {
+          center: [55.76, 37.64], // Coordinates for Moscow, change to your desired location
+          zoom: 7
+        });
+      });
+    }
+  
+    render() {
+      return (
+        <div id="map" style={{width: '600px', height: '600px', borderRadius: '30px', overflow: 'hidden'}}/>
+      );
+    }
+  }
+  
 
 function Plan() {
     const [showMore, setShowMore] = useState(false);
@@ -79,7 +104,7 @@ function Plan() {
                             </div>
                         </div>
                         <div className="h-[600px] w-[600px] mt-[44px]">
-                            <img className="rounded-[65px]" src={planmap} />
+                            <YandexMap />
                         </div>
                     </div>
                 </div>
@@ -89,3 +114,4 @@ function Plan() {
 }
 
 export default Plan;
+export { YandexMap };
