@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { changePage } from './redux/createslice';
 import MainCard from "./cards/maincards";
@@ -28,41 +28,27 @@ import { Link } from "react-router-dom";
 import Header from "./header";
 import Banner from "./banner";
 import Footer from "./footer";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 
-function Main ({app, onButtonClick, onShowMoney, onShowMainPage, onShowFavorite}) {
-    const [tour, setTour] = useState([]);
-    
-    useEffect(() => {
-        const fetchData = async () => {
-          const db = getFirestore(app);
-          const tours = await getTours(db);
-          var indeces = []
-          for (var i = 0; i < 6; i++){
-            var randomIndex = Math.floor(Math.random() * tours.length);
-            //var randomCity = tours[randomIndex]?.dictionary_data?.city || '';
-            var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
-            var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
-            indeces.push([randomTitle, randomPrice])
-          }
-    
-          setTour(indeces);
-        };
-    
-        fetchData();
-      }, []);
+function Main ({ onShowMainPage}) {
 
-    async function getTours(db) {
-        const toursCol = collection(db, 'tours');
-        const tourSnapshot = await getDocs(toursCol);
-        const tourList = tourSnapshot.docs.map(doc => doc.data());
-        return tourList;
-      }
+
+    const [buttonsPressed, setButtonsPressed] = useState([]);
+
+    const onButtonClick = (buttonIndex) => {
+        setButtonsPressed(prevButtonsPressed => [...prevButtonsPressed, buttonIndex]);
+    }
+
+    const onContinueClick = () => {
+        console.log(buttonsPressed);
+    }
+
+
     // какая страница
     const dispatch = useDispatch();
 
@@ -130,13 +116,13 @@ function Main ({app, onButtonClick, onShowMoney, onShowMainPage, onShowFavorite}
                                     <Transition
                                         as={Fragment}
                                         enter="transition ease-out duration-100"
-                                        enterFrom="transform opatour-0 scale-95"
-                                        enterTo="transform opatour-100 scale-100"
+                                        enterFrom="transform opacity-0 scale-95"
+                                        enterTo="transform opacity-100 scale-100"
                                         leave="transition ease-in duration-75"
-                                        leaveFrom="transform opatour-100 scale-100"
-                                        leaveTo="transform opatour-0 scale-95"
+                                        leaveFrom="transform opacity-100 scale-100"
+                                        leaveTo="transform opacity-0 scale-95"
                                     >
-                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opatour-5 focus:outline-none">
+                                        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                             <div className="py-1">
                                                 <Menu.Item>
                                                     {({ active }) => (<a href="#" onClick={() => handleSelect("1 человек")} className={classNames(active ? 'bg-gray-100 text-gray-900' : 'text-gray-700','block px-4 py-2 text-sm')}>1 человек</a>)}
@@ -162,24 +148,18 @@ function Main ({app, onButtonClick, onShowMoney, onShowMainPage, onShowFavorite}
                             </div>
                         </div>
                         <div className="mt-[40px] h-[1152px] flex flex-wrap ml-[48px] mr-[48px] justify-between content-between">
-                            {tour.length > 0 ? (
-                                Array.from({ length: 6 }, (_, index) => (
-                                    <MainCard 
-                                        maincardtitle={tour[index][0]} 
-                                        maincardsity={''} 
-                                        maincardprice={tour[index][1]} 
-                                    />
-                                ))
-                            ) : (
-                                <div>Loading...</div>
-                            )}
+                            <MainCard maincardtitle="" maincardsity="" maincard="" />
+                            <MainCard  />
+                            <MainCard  />
+                            <MainCard  />
+                            <MainCard  />
+                            <MainCard  />
                         </div>
-
                         {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                     </div>
                 </div>
                 <div className="flex h-[653px] w-[1320px] bg-[#FFFBF3] items-center justify-center mt-[40px] rounded-[48px]">
-                    <Nav onButtonClick={onButtonClick}/>
+                    <Nav onButtonClick={onButtonClick} onContinueClick={onContinueClick} />
                 </div>
                 <div className="h-[1240px] w-[1320px] bg-[#FFFBF3] mt-[40px] rounded-[48px] flex flex-col items-center">
                     <div className="mt-[24px]">
