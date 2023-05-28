@@ -4,26 +4,16 @@ import MapCard1 from "./mapcards/mapcard1";
 import MapCard2 from "./mapcards/mapcard2";
 import MapCard3 from "./mapcards/mapcard3";
 import MapCard4 from "./mapcards/mapcard4";
-import {ReactComponent as KartaSvg1} from '../image/kartasvg1.svg';
-import kartasvg1 from '../image/kartasvg1.svg'
-import kartasvg2 from '../image/kartasvg2.svg'
 import '../App.css'
 import flag from '../icons/flag.png'
 
-function Nav ({ onButtonClick }) {
+function Nav () {
     const [selectedCardId, setSelectedCardId] = useState(null);
     const [isDarken, setDarken] = useState(false);
-    const [selectedButtonTemp, setSelectedButtonTemp] = useState(null);
 
     const handleButtonClick = (cardId) => {
         setSelectedCardId(cardId);
         setDarken(true);
-        setSelectedButtonTemp(Number(cardId));
-        onButtonClick(Number(cardId) - 1);
-    }
-
-    const onContinueClick = () => {
-        console.log(selectedButtonTemp);
     }
     
     const onBackgroundClick = (event) => {
@@ -35,13 +25,13 @@ function Nav ({ onButtonClick }) {
     const renderSelectedCard = () => {
         switch (selectedCardId) {
             case '0':
-                return <MapCard1 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
+                return <MapCard1 number={'0'}/>
             case '1':
-                return <MapCard2 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
+                return <MapCard2 number={'1'}/>
             case '2':
-                return <MapCard3 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
+                return <MapCard3 number={'2'}/>
             case '3':
-                return <MapCard4 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
+                return <MapCard4 number={'3'}/>
             default:
                 return null;
         }

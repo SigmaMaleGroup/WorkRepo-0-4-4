@@ -1,21 +1,39 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Header from "./header";
 import Footer from "./footer";
 import Datepicker from "react-tailwindcss-datepicker";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import users from '../icons/users.png'
-import location from '../icons/location.png'
 import mapimg from '../image/mapimg.png'
 import MainCard from "./cards/maincards";
+import { useLocation } from 'react-router-dom';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { getFirestore, collection, getDocs, query, where} from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
 
 function MainPage () {
-
-
+    const location = useLocation();
+    const i1 = location.state?.selectedButton1;
+    const i2 = location.state?.selectedButton2;
+    const i3 = location.state?.selectedButton3;
+    const r = location.state?.region_index;
+    const firebaseConfig = {
+        apiKey: "AIzaSyCPvQYAYMgiBeARPSWh3R59Zpxcm_X7bqk",
+        authDomain: "russpassds.firebaseapp.com",
+        databaseURL: "https://russpassds-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "russpassds",
+        storageBucket: "russpassds.appspot.com",
+        messagingSenderId: "978797123770",
+        appId: "1:978797123770:web:6d8d8a0caf4f598f718a83",
+        measurementId: "G-WQ192CXM64"
+      };
+    
+    const app = initializeApp(firebaseConfig);
     
     const [value, setValue] = useState({
         startDate: new Date(), 
@@ -33,6 +51,65 @@ function MainPage () {
     const handleSelect = (option) => {
         setSelectedOption(option);
     }
+
+    const [tour, setTour] = useState([]);
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          const db = getFirestore(app);
+          const tours = await getTours(db, r, i1, i2, i3);
+          var indeces = []
+          for (var i = 0; i < tours.length; i++){
+            var randomIndex = Math.floor(Math.random() * tours.length);
+            var city_id = tours[randomIndex]?.dictionary_data?.city || '';
+            const city_data = await getCity(db, city_id);
+            var randomCity = city_data[0];
+            var randomCoords = city_data[1];
+            var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
+            var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
+            var randomDays = tours[randomIndex]?.dictionary_data?.days || '';
+            var img_id = '62a1aa9ab076bd79ea7a45a3.jpeg';
+            const storage = getStorage();
+            const imageRef = ref(storage, `images/${img_id}`);
+            const imgUrl = await getDownloadURL(imageRef);
+
+            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords])
+          }
+    
+          setTour(indeces);
+        };
+    
+        fetchData();
+      }, []);
+    
+      async function getCity(db, id) {
+        const citiesRef = collection(db, "cities");
+        const q = query(citiesRef, where("_id.$oid", "==", id));
+        const querySnapshot = await getDocs(q);
+        
+        let city = null;
+        let city_coord = [];
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          const data = doc.data();
+          city = data?.dictionary_data?.title
+          city_coord = data?.dictionary_data?.geo_data?.coordinates
+          console.log(city_coord)
+        }
+        
+        return [city, city_coord];
+      }
+
+      async function getTours(db, r, i1, i2, i3) {
+        console.log(r, i1, i2, i3);
+        const toursCol = collection(db, 'tours');
+        const querySnapshot = await where(toursCol, "style", "==", i1).get();
+        let docs = []
+        querySnapshot.forEach(doc => {
+            docs.push(doc.data());
+          });
+        return docs;
+      }
 
     return (
         <div className="bg-[#F1E4CF]">
@@ -108,14 +185,20 @@ function MainPage () {
                     <h1 className="text-[32px] font-semibold h-[123px] pt-[48px] ml-[48px]">Направления по запросу: Москва</h1>
                     <div className="flex flex-col items-center justify-center">
                         <div className="flex flex-wrap justify-between w-[805px] h-[2380px]">
-                            <MainCard />
-                            <MainCard />
-                            <MainCard />
-                            <MainCard />
-                            <MainCard />
-                            <MainCard />
-                            <MainCard />
-                            <MainCard />
+                        {tour.length > 0 ? (
+                                Array.from({ length: tour.length }, (_, index) => (
+                                    <MainCard 
+                                        maincardtitle={tour[index][0]} 
+                                        maincardsity={tour[index][1]} 
+                                        maincardprice={tour[index][2]} 
+                                        maincardday={tour[index][3]}
+                                        maincardimg={tour[index][4]}
+                                        maincardcoord={tour[index][5]}
+                                    />
+                                ))
+                            ) : (
+                                <div>Loading...</div>
+                            )}
                         </div>
                         <button className=" mt-[25px] text-[17px] font-semibold h-[50px] w-[400px] bg-[#FFCF08] rounded-[12.5px]">Посмотреть еще</button>
                     </div>
