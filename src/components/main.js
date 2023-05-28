@@ -35,7 +35,19 @@ function classNames(...classes) {
 }
 
 
-function Main ({ onButtonClick, onShowMoney, onShowMainPage, onShowFavorite}) {
+function Main ({ onShowMainPage}) {
+
+
+    const [buttonsPressed, setButtonsPressed] = useState([]);
+
+    const onButtonClick = (buttonIndex) => {
+        setButtonsPressed(prevButtonsPressed => [...prevButtonsPressed, buttonIndex]);
+    }
+
+    const onContinueClick = () => {
+        console.log(buttonsPressed);
+    }
+
 
     // какая страница
     const dispatch = useDispatch();
@@ -136,18 +148,18 @@ function Main ({ onButtonClick, onShowMoney, onShowMainPage, onShowFavorite}) {
                             </div>
                         </div>
                         <div className="mt-[40px] h-[1152px] flex flex-wrap ml-[48px] mr-[48px] justify-between content-between">
-                            <MainCard onShowMoney={onShowMoney} />
-                            <MainCard onShowMoney={onShowMoney} />
-                            <MainCard onShowMoney={onShowMoney} />
-                            <MainCard onShowMoney={onShowMoney} />
-                            <MainCard onShowMoney={onShowMoney} />
-                            <MainCard onShowMoney={onShowMoney} />
+                            <MainCard maincardtitle="" maincardsity="" maincard="" />
+                            <MainCard  />
+                            <MainCard  />
+                            <MainCard  />
+                            <MainCard  />
+                            <MainCard  />
                         </div>
                         {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                     </div>
                 </div>
                 <div className="flex h-[653px] w-[1320px] bg-[#FFFBF3] items-center justify-center mt-[40px] rounded-[48px]">
-                    <Nav onButtonClick={onButtonClick}/>
+                    <Nav onButtonClick={onButtonClick} onContinueClick={onContinueClick} />
                 </div>
                 <div className="h-[1240px] w-[1320px] bg-[#FFFBF3] mt-[40px] rounded-[48px] flex flex-col items-center">
                     <div className="mt-[24px]">

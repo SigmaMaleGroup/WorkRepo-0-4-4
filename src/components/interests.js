@@ -13,48 +13,80 @@ import it7 from '../image/it7.png'
 import it8 from '../image/it8.png'
 import it9 from '../image/it9.png'
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-function Interests () {
+function Interests({ onButtonClick }) {
+
+    const [selectedButton1, setSelectedButton1] = useState(null);
+    const [selectedButton2, setSelectedButton2] = useState(null);
+    const [selectedButton3, setSelectedButton3] = useState(null);
+    const [clickedButtonsArray, setClickedButtonsArray] = useState([]);
+
+    const handleButtonClick1 = (buttonIndex) => {
+        setSelectedButton1(buttonIndex);
+        let newArr = [...clickedButtonsArray];
+        newArr.push({ group: 0, button: buttonIndex });
+        setClickedButtonsArray(newArr);
+    }
+
+    const handleButtonClick2 = (buttonIndex) => {
+        setSelectedButton2(buttonIndex);
+        let newArr = [...clickedButtonsArray];
+        newArr.push({ group: 1, button: buttonIndex });
+        setClickedButtonsArray(newArr);
+    }
+
+    const handleButtonClick3 = (buttonIndex) => {
+        setSelectedButton3(buttonIndex);
+        let newArr = [...clickedButtonsArray];
+        newArr.push({ group: 2, button: buttonIndex });
+        setClickedButtonsArray(newArr);
+    }
+
+    const onContinueClick = () => {
+        console.log(clickedButtonsArray);
+    }
+
     return (
         <div>
             <Header />
-                <div className="bg-[#F1E4CF] h-[1334px] flex flex-col justify-center items-center">
-                    <div className=" h-[1334px] w-[1306px] bg-[#FFFBF3] rounded-[48px]">
-                        <div className="">
-                            <div className="ml-[48px] mt-[48px]">
-                                <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Что вас интересует?</h1>
-                            </div>
-                            <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
-                                <InterestsCard img={hotvac} buttonname="Пялжный отдых"/>
-                                <InterestsCard img={it2} buttonname="Горный отдых"/>
-                                <InterestsCard img={it3} buttonname="Культурный отдых"/>
-                            </div>
+            <div className="bg-[#F1E4CF] h-[1334px] flex flex-col justify-center items-center">
+                <div className=" h-[1334px] w-[1306px] bg-[#FFFBF3] rounded-[48px]">
+                    <div className="">
+                        <div className="ml-[48px] mt-[48px]">
+                            <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Что вас интересует?</h1>
                         </div>
-                        <div className="">
-                            <div className="ml-[48px] mt-[40px]">
-                                <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Как развлечемся?</h1>
-                            </div>
-                            <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
-                                <InterestsCard img={it4} buttonname="Музеи"/>
-                                <InterestsCard img={it5} buttonname="Парки"/>
-                                <InterestsCard img={it6} buttonname="Театры"/>
-                            </div>
-                        </div>
-                        <div className="">
-                            <div className="ml-[48px] mt-[40px]">
-                                <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Где будите кушать?</h1>
-                            </div>
-                            <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
-                                <InterestsCard img={it7} buttonname="Кафе"/>
-                                <InterestsCard img={it8} buttonname="Рестораны"/>
-                                <InterestsCard img={it9} buttonname="Столовая"/>
-                            </div>
-                        </div>
-                        <div className="ml-[48px] mt-[40px]">
-                            <button className="w-[362px] h-[70px] bg-[#FFCF08] rounded-[20px] font-roboto text-[30px] font-semibold"><Link to="/mainpage">Продолжить&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</Link></button>
+                        <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
+                            <InterestsCard img={hotvac} buttonname="Пялжный отдых" buttonIndex={1} onButtonClick={handleButtonClick1} selected={selectedButton1 === 1} />
+                            <InterestsCard img={it2} buttonname="Горный отдых" buttonIndex={2} onButtonClick={handleButtonClick1} selected={selectedButton1 === 2} />
+                            <InterestsCard img={it3} buttonname="Культурный отдых" buttonIndex={3} onButtonClick={handleButtonClick1} selected={selectedButton1 === 3} />
                         </div>
                     </div>
+                    <div className="">
+                        <div className="ml-[48px] mt-[40px]">
+                            <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Как развлечемся?</h1>
+                        </div>
+                        <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
+                            <InterestsCard img={it4} buttonname="Музеи" buttonIndex={1} onButtonClick={handleButtonClick2} selected={selectedButton2 === 1} />
+                            <InterestsCard img={it5} buttonname="Парки" buttonIndex={2} onButtonClick={handleButtonClick2} selected={selectedButton2 === 2} />
+                            <InterestsCard img={it6} buttonname="Театры" buttonIndex={3} onButtonClick={handleButtonClick2} selected={selectedButton2 === 3} />
+                        </div>
+                    </div>
+                    <div className="">
+                        <div className="ml-[48px] mt-[40px]">
+                            <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Где будите кушать?</h1>
+                        </div>
+                        <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
+                            <InterestsCard img={it7} buttonname="Кафе" buttonIndex={1} onButtonClick={handleButtonClick3} selected={selectedButton3 === 1} />
+                            <InterestsCard img={it8} buttonname="Рестораны" buttonIndex={2} onButtonClick={handleButtonClick3} selected={selectedButton3 === 2} />
+                            <InterestsCard img={it9} buttonname="Столовая" buttonIndex={3} onButtonClick={handleButtonClick3} selected={selectedButton3 === 3} />
+                        </div>
+                    </div>
+                    <div className="ml-[48px] mt-[40px]">
+                        <button className="w-[362px] h-[70px] bg-[#FFCF08] rounded-[20px] font-roboto text-[30px] font-semibold" onClick={onContinueClick}><Link to="/mainpage">Продолжить&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→</Link></button>
+                    </div>
                 </div>
+            </div>
             <Footer />
         </div>
     )

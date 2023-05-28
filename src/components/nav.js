@@ -10,14 +10,16 @@ import kartasvg2 from '../image/kartasvg2.svg'
 import '../App.css'
 import flag from '../icons/flag.png'
 
-function Nav ({ onButtonClick: onInterestsButtonClick }) {
+function Nav ({ onButtonClick, onContinueClick }) {
     const [selectedCardId, setSelectedCardId] = useState(null);
     const [isDarken, setDarken] = useState(false);
 
     const handleButtonClick = (cardId) => {
         setSelectedCardId(cardId);
         setDarken(true);
-    }
+        onButtonClick(Number(cardId) - 1); // Обратите внимание, что cardId взято в кавычки - это строка. Мы вычитаем 1, чтобы получить индекс в массиве (начиная с 0).
+      }
+    
 
     const onBackgroundClick = (event) => {
         if (event.target !== event.currentTarget) return;
@@ -28,13 +30,13 @@ function Nav ({ onButtonClick: onInterestsButtonClick }) {
     const renderSelectedCard = () => {
         switch (selectedCardId) {
             case '1':
-                return <MapCard1 onButtonClick={onInterestsButtonClick} />;
+                return <MapCard1 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
             case '2':
-                return <MapCard2 onButtonClick={onInterestsButtonClick} />;
+                return <MapCard2 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
             case '3':
-                return <MapCard3 onButtonClick={onInterestsButtonClick} />;
+                return <MapCard3 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
             case '4':
-                return <MapCard4 onButtonClick={onInterestsButtonClick} />;
+                return <MapCard4 onButtonClick={handleButtonClick} onContinueClick={onContinueClick} />
             default:
                 return null;
         }
@@ -46,10 +48,11 @@ function Nav ({ onButtonClick: onInterestsButtonClick }) {
             <div className="h-[479px] w-[1224px] rounded-[75px] relative flex justify-center items-center ">
                 <div className={`absolute h-[479px] w-[1224px] bg-black mx-[50px] my-[44px] rounded-[50px] bg-cover bg-center`} style={{ backgroundImage: `url(${mainmap})`, filter: isDarken ? 'brightness(70%)' : 'brightness(100%)' }}/>
                 <div className="h-[637.52px] w-[1620px] mx-[50px] my-[44px] rounded-[50px] justify-center items-center flex relative">
-                <button className="relative top-[-50px] right-[320px] text-black" onClick={() => handleButtonClick('1')}><img src={flag} /></button>
-                    <button className="relative left-[-120px]" onClick={() => handleButtonClick('2')}><img src={flag} /></button>
-                    <button className="relative left-[10px]" onClick={() => handleButtonClick('3')}><img src={flag} /></button>
-                    <button className="relative top-[-50px] right-[-200px]" onClick={() => handleButtonClick('4')}><img src={flag} /></button>
+                    <button className="relative top-[-50px] right-[320px] text-black" onClick={() => handleButtonClick('0')}><img src={flag} /></button>
+                    <button className="relative left-[-120px]" onClick={() => handleButtonClick('1')}><img src={flag} /></button>
+                    <button className="relative left-[10px]" onClick={() => handleButtonClick('2')}><img src={flag} /></button>
+                    <button className="relative top-[-50px] right-[-200px]" onClick={() => handleButtonClick('3')}><img src={flag} /></button>
+
                     {renderSelectedCard()}
                 </div>
             </div>
