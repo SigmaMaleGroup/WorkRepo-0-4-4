@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { changePage } from './redux/createslice';
 import MainCard from "./cards/maincards";
 import mainimgts from '../image/mainimgts.png'
 import hotel from '../icons/hotel.png'
@@ -109,11 +108,6 @@ function Main ({ app, onShowMainPage}) {
     // какая страница
     const dispatch = useDispatch();
 
-    const handlePageChange = (newPage) => {
-        console.log('Setting new page:', newPage);
-        localStorage.setItem('currentPage', newPage);
-        dispatch(changePage(newPage));
-      };
 
 
     // ебань для выбора даты
@@ -214,6 +208,7 @@ function Main ({ app, onShowMainPage}) {
                             ) : (
                                 <div>Loading...</div>
                             )}
+                            <MainCard />
                         </div>
                         {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                     </div>

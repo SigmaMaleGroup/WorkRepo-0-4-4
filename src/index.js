@@ -3,18 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import configureStore from '../src/components/redux/rootreducer'
 import { ChakraProvider } from '@chakra-ui/react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '../src/components/redux/store'; // or wherever your store is
+import { store } from '../src/components/redux/store'; // or wherever your store is
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store} >
-    <PersistGate loading={null} persistor={persistor}>
       <App />
-    </PersistGate>
   </Provider>
 );
 

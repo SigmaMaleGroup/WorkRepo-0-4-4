@@ -9,6 +9,9 @@ import PlanDay from "./plan/planday";
 import More1 from "./more/more1";
 import planmap from '../image/planmap.png'
 import { useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+import { addDay, removeDay } from './redux/tripSlice'
+import { useSelector } from 'react-redux'
 
 class YandexMap extends Component {
     map = null;
@@ -40,7 +43,17 @@ function Plan() {
     const moreRef = useRef();
     const location = useLocation();
     const data = location.state?.data;
+    const dispatch = useDispatch()
+    const days = useSelector((state) => state.trip.days)
     console.log(data)
+
+    const handleAddDay = () => {
+        dispatch(addDay())
+      }
+
+    const handleRemoweDay = () => {
+        dispatch(removeDay())
+    }
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -67,7 +80,7 @@ function Plan() {
                                 <h1 className="right-[115px] relative text-[32px] font-semibold">Нижний Новгород</h1>
                                 <div className="relative">
                                     <button className="mt-[11px]" onClick={() => setShowMore(!showMore)}><img src={more} /></button>
-                                    {showMore && <div ref={moreRef}><More1 /></div>}
+                                    {showMore && <div ref={moreRef}><More1 handleAddDay={handleAddDay} /></div>}
                                 </div>
                             </div>
                                 <div className="h-[56px] flex items-end text-[16px] font-semibold ml-[78px]">
@@ -77,7 +90,9 @@ function Plan() {
                                 </div>
                             </div>
                             <div className="min-h-[730px] w-[600px] ml-[108px]">
-                                <PlanDay />
+                                {days.map((day, index) => (
+                                    <PlanDay key={index} day={day} handleAddDay={handleAddDay} handleRemoweDay={handleRemoweDay} />
+                                ))}
                             </div>
                             <div className="h-[371px] w-[608px] mt-[39px] ml-[120px]">
                                 <div className="flex justify-between items-center">
@@ -107,7 +122,7 @@ function Plan() {
                                 </div>
                             </div>
                         </div>
-                        <div className="h-[600px] w-[600px] mt-[44px]">
+                        <div className="relative h-[600px] w-[600px] mt-[44px]">
                             <YandexMap data={data}/>
                         </div>
                     </div>

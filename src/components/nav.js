@@ -6,6 +6,7 @@ import MapCard3 from "./mapcards/mapcard3";
 import MapCard4 from "./mapcards/mapcard4";
 import '../App.css'
 import flag from '../icons/flag.png'
+import zone1 from '../image/zone1.svg'
 
 function Nav () {
     const [selectedCardId, setSelectedCardId] = useState(null);
