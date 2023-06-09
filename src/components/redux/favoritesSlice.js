@@ -7,10 +7,10 @@ const favoritesSlice = createSlice({
   initialState,
   reducers: {
     addTrip(state, action) {
-      state.trips.push(action.payload)
-    },
+      state.trips.push(action.payload.id)
+    },    
     removeTrip(state, action) {
-      state.trips.splice(action.payload, 1)
+      state.tripIds = state.tripIds.filter(id => id !== action.payload);
     },
     addActivity(state, action) {
       state.activities.push(action.payload)

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from './header';
 import Footer from "./footer";
 import FavoriteCadrd from "./cards/favoritecard";
@@ -8,13 +8,83 @@ import fvimg3 from '../image/fvimg3.png'
 import fvimg4 from '../image/fvimg4.png'
 import fvimg5 from '../image/fvimg5.png'
 import fvimg6 from '../image/fvimg6.png'
+import { useSelector } from "react-redux";
+import { getFirestore, collection, getDocs, query, where} from 'firebase/firestore';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
-function Favorite (props) {
+function Favorite (props, app) {
     const [activeButton, setActiveButton] = useState(1);
 
     const handleButtonClick = (buttonNumber) => {
         setActiveButton(buttonNumber);
     }
+
+    const favoriteTripIds = useSelector(state => state.favorites.tripIds);
+
+    const [favoriteTrips, setFavoriteTrips] = useState([]);
+
+    useEffect(() => {
+        console.log('useEffect was called'); 
+    // Здесь нужно написать функцию, которая запрашивает данные для каждого из избранных туров.
+    // Важно, что эта функция должна быть асинхронной, чтобы мы могли дождаться результатов всех запросов.
+    const fetchFavoriteTrips = async () => {
+        const trips = await Promise.all((favoriteTripIds || []).map(async id => {
+        const db = getFirestore(app);
+        const tour = await getTourById(db, id);
+        console.log("Tour: ", tour);
+        const city_data = await getCity(db, tour.dictionary_data.city);
+        console.log("City Data: ", city_data);
+        var randomCity = city_data[0];
+        var randomCoords = city_data[1];
+        var randomTitle = tour.dictionary_data.title || '';
+        var randomPrice = tour.dictionary_data.price || '';
+        var randomDays = tour.dictionary_data.days || '';
+        var img_id = tour.dictionary_data.image_detailed_page_main?.source?.id || '62a1e09237e5f4efd4a758d2' + '.jpeg';
+        const storage = getStorage();
+        const imageRef = ref(storage, `${img_id}`);
+        const imgUrl = await getDownloadURL(imageRef);
+        return {title: randomTitle, city: randomCity, price: randomPrice, days: randomDays, imgUrl: imgUrl, coords: randomCoords};
+        }));
+        setFavoriteTrips(trips);
+        console.log(favoriteTrips);
+        console.log("Favorite Trip Ids: ", favoriteTripIds); 
+    };
+
+    async function getTourById(db, id) {
+        const toursRef = collection(db, "tours");
+        const q = query(toursRef, where("_id.$oid", "==", id));
+        const querySnapshot = await getDocs(q);
+      
+        let tour = null;
+      
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          tour = doc.data();
+        }
+      
+        return tour;
+      }
+
+      async function getCity(db, id) {
+        const citiesRef = collection(db, "cities");
+        const q = query(citiesRef, where("_id.$oid", "==", id));
+        const querySnapshot = await getDocs(q);
+        
+        let city = null;
+        let city_coord = [];
+        if (!querySnapshot.empty) {
+          const doc = querySnapshot.docs[0];
+          const data = doc.data();
+          city = data?.dictionary_data?.title
+          city_coord = data?.dictionary_data?.geo_data?.coordinates
+          console.log(city_coord)
+        }
+        
+        return [city, city_coord];
+      }
+    fetchFavoriteTrips();
+    }, [favoriteTripIds]);
+
 
     return (
         <div>
@@ -52,14 +122,18 @@ function Favorite (props) {
                 )}
                 {activeButton === 2 && (
                     <div className="mt-[40px] w-[1224px] h-[974px] flex flex-wrap justify-between items-between">
-                        <FavoriteCadrd header="Все места" paragraf="100 мест" fvbutton="Отрыть план" fvimgmane={fvimg1}/>
-                        <FavoriteCadrd header="аааОренбург" paragraf="2 дня, 3 места" fvbutton="Отрыть план" fvimgmane={fvimg2}/>
-                        <FavoriteCadrd header="ааАлтай" paragraf="2 дня, 3 места" fvbutton="Отрыть план" fvimgmane={fvimg3}/>
-                        <FavoriteCadrd header="Казань" paragraf="2 дня, 3 места" fvbutton="Отрыть план" fvimgmane={fvimg4}/>
-                        <FavoriteCadrd header="Тюмень" paragraf="2 дня, 3 места" fvbutton="Отрыть план" fvimgmane={fvimg5}/>
-                        <FavoriteCadrd header="Воронеж" paragraf="2 дня, 3 места" fvbutton="Отрыть план" fvimgmane={fvimg6}/>
+                        {favoriteTrips.map(trip => 
+                        <FavoriteCadrd 
+                            key={trip.id}
+                            header={trip.title} 
+                            paragraf={trip.city} 
+                            fvbutton="Отрыть план" 
+                            fvimgmane={trip.imgUrl}
+                        />
+                        )}
                     </div>
                 )}
+
                 {activeButton === 3 && (
                     <div className="mt-[40px] w-[1224px] h-[974px] flex flex-wrap justify-between items-between">
                         <FavoriteCadrd header="ббВсе места" paragraf="100 мест" fvbutton="Посмотреть" fvimgmane={fvimg1}/>

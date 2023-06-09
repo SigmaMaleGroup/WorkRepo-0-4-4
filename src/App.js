@@ -44,7 +44,7 @@ function App() {
           <Route path="/interests" element={<Interests />} />
           <Route path="/money" element={<Plan />} />
           <Route path="/mainpage" element={<MainPage />} />
-          <Route path="/favorite" element={<Favorite />} />
+          <Route path="/favorite" element={<Favorite app={app} />} />
           <Route path="/" element={<Main app={app}/>} /> {/* The component shown when no other routes match */}
         </Routes>
       </div>

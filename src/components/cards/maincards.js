@@ -7,6 +7,8 @@ import comfort from '../../icons/comfort.png'
 import heart from '../../icons/heart.png'
 import heart2 from '../../icons/heart2.svg'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import {addTrip} from  '../redux/favoritesSlice'
 
 
 function MoneyButton(props) {
@@ -31,8 +33,9 @@ function MoneyButton(props) {
     );
 }
 
-function MainCard (props, ref) {
+function MainCard (props, tourID) {
     // Используем состояние для отслеживания того, отображается ли компонент Money
+        const dispatch = useDispatch()
 
         const [isHeartSelected, setIsHeartSelected] = useState(false);
 
@@ -85,8 +88,11 @@ function MainCard (props, ref) {
                         <button className="bg-[#FFCF08] w-[334px] h-[48px] rounded-l-[20px] rounded-r-[4px] font-roboto font-medium">
                             <MoneyButton price={props.maincardprice} day={props.maincardday} wDay={wordDay} coord={props.maincardcoord}/>
                         </button>
-                        <button className="items-center ml-[2px] h-[48px] w-[48px] bg-[#FAEFDB] rounded-r-[20px] rounded-l-[4px]" onClick={handleButtonClick}><img className="ml-[12px]" src={isHeartSelected ? heart2 : heart} alt="Heart"/></button></div>
-
+                        <button className="items-center ml-[2px] h-[48px] w-[48px] bg-[#FAEFDB] rounded-r-[20px] rounded-l-[4px]"
+                            onClick={() => dispatch(addTrip({id: tourID}))}>
+                            <img className="ml-[12px]" src={heart} />
+                        </button>
+                    </div>
                     {/* Если состояние showMoney равно true, тогда отображаем компонент Money */}
                     {/* {showMoney && <Money />} */}
                 </div>

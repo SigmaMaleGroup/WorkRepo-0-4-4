@@ -58,9 +58,9 @@ function Main ({ app, onShowMainPage}) {
             const storage = getStorage();
             const imageRef = ref(storage, `${img_id}`);
             const imgUrl = await getDownloadURL(imageRef);
-
+            const tourID = tours[randomIndex]?._id['$oid'];
             console.log(tours[randomIndex]?._id['$oid'])
-            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords])
+            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords, tourID])
           }
     
           setTour(indeces);
@@ -205,6 +205,7 @@ function Main ({ app, onShowMainPage}) {
                                         maincardday={tour[index][3]}
                                         maincardimg={tour[index][4]}
                                         maincardcoord={tour[index][5]}
+                                        tourID={tour[index][6]}
                                     />
                                 ))
                             ) : (
