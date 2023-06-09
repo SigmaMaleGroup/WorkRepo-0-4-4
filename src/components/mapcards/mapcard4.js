@@ -5,7 +5,7 @@ import mapimg4 from '../../image/mapimg4.png'
 
 function MapCard4 (props) {
     return (
-        <div className="absolute">
+        <div className="absolute top-[100px] left-[220px]">
             <div className="absolute">
                 <MapCard number={props.number} mpcrimg={mapimg4} mpcrheader="Дальневосточный округ" mpcrpar="Дальний Восток славится своими заповедниками и национальными парками, гейзерами и вулканами, поэтому лучшего края, чтобы уединиться с природой и исследовать природные чудеса, не найти."/>
             </div>

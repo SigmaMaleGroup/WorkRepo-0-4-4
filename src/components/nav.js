@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import mainmap from '../image/mapmain.png'
 import MapCard1 from "./mapcards/mapcard1";
 import MapCard2 from "./mapcards/mapcard2";
@@ -17,11 +17,21 @@ function Nav () {
         setDarken(true);
     }
     
-    const onBackgroundClick = (event) => {
-        if (event.target !== event.currentTarget) return;
-        setSelectedCardId(null);
-        setDarken(false);
-    }
+    const onDocumentClick = (event) => {
+        const wasClickInsideCard = event.target.closest('.map-card');
+        if (!wasClickInsideCard) {
+            setSelectedCardId(null);
+            setDarken(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', onDocumentClick);
+
+        return () => {
+            document.removeEventListener('mousedown', onDocumentClick);
+        }
+    }, []);
 
     const renderSelectedCard = () => {
         switch (selectedCardId) {
@@ -39,7 +49,7 @@ function Nav () {
     }
 
     return (
-        <div className="relative bg-cover bg-center h-[810px] flex flex-col items-center justify-center" onClick={onBackgroundClick}>
+        <div className="relative bg-cover bg-center h-[810px] flex flex-col items-center justify-center" >
             <h1 className="selfcenter mb-[39px] font-proto text-[36px] font-semibold">Карта интересов</h1>
             <div className="h-[479px] w-[1224px] rounded-[75px] relative flex justify-center items-center ">
                 <div className={`absolute h-[479px] w-[1224px] bg-black mx-[50px] my-[44px] rounded-[50px] bg-cover bg-center`} style={{ backgroundImage: `url(${mainmap})`, filter: isDarken ? 'brightness(70%)' : 'brightness(100%)' }}/>

@@ -25,20 +25,23 @@ function InterestsButton(props) {
 
 function MapCard ({number, mpcrimg, mpcrheader, mpcrpar}) {
     return (
-        <div className="h-[560px] w-[392px] bg-white rounded-[20px] drop-shadow-md">
-            <div className="flex flex-col jusify-center items-center">
-                <div className="m-[4px] flex">
-                    <img src={mpcrimg} />
-                </div>
-                <div className="mx-[20px] h-[214px] flex flex-col items-start font-proto">
-                    <h1 className=" text-[24px] font-semibold">{mpcrheader}</h1>
-                    <p className="text-[14px] font-semibold text-[#1d1d1d80]">{mpcrpar}</p>
-                </div>
-                <div className=" flex jusify-end items-end mb-[4px]">
-                    <InterestsButton number={number}/>
+        <div className="map-card">
+            <div className="h-[560px] w-[392px] bg-white rounded-[20px] drop-shadow-md">
+                <div className="flex flex-col jusify-center items-center">
+                    <div className="m-[4px] flex">
+                        <img src={mpcrimg} />
+                    </div>
+                    <div className="mx-[20px] h-[214px] flex flex-col items-start font-proto">
+                        <h1 className=" text-[24px] font-semibold">{mpcrheader}</h1>
+                        <p className="text-[14px] font-semibold text-[#1d1d1d80]">{mpcrpar}</p>
+                    </div>
+                    <div className=" flex jusify-end items-end mb-[4px]">
+                        <InterestsButton number={number}/>
+                    </div>
                 </div>
             </div>
         </div>
+
     )
 }
 
