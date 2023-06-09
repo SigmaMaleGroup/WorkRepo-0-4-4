@@ -59,6 +59,7 @@ function Main ({ app, onShowMainPage}) {
             const imageRef = ref(storage, `${img_id}`);
             const imgUrl = await getDownloadURL(imageRef);
 
+            console.log(tours[randomIndex]?._id['$oid'])
             indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords])
           }
     
