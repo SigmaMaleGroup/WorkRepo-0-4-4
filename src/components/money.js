@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 import { addDay, removeDay } from './redux/tripSlice'
 import { useSelector } from 'react-redux'
+import { initializeDays } from './redux/tripSlice';
 
 class YandexMap extends Component {
     map = null;
@@ -47,6 +48,7 @@ function Plan() {
     const days = useSelector((state) => state.trip.days)
     let route = data[0].route
     const planArrays = route.map(obj => obj.plan)
+    console.log(planArrays)
 
     const handleAddDay = () => {
         dispatch(addDay())
@@ -68,6 +70,10 @@ function Plan() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        dispatch(initializeDays(planArrays));
+      }, []);
 
     return (
         <div>

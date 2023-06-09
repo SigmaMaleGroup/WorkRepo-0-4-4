@@ -6,23 +6,27 @@ const tripSlice = createSlice({
   name: 'trip',
   initialState,
   reducers: {
+    initializeDays(state, action) {
+      state.days = action.payload.map(day => ({ activities: day }));
+    },
     addDay(state) {
-      state.days.push({ activities: ['penis'] }) // добавляем новый день с пустым списком мероприятий
+      state.days.push({ activities: [] });
     },
     removeDay(state, action) {
-      state.days.splice(action.payload, 1) // удаляем день по индексу
+      state.days.splice(action.payload, 1);
     },
     addActivity(state, action) {
-      const { dayIndex, activity } = action.payload // получаем индекс дня и мероприятие
-      state.days[dayIndex].activities.push(activity) // добавляем мероприятие в конкретный день
+      const { dayIndex, activity } = action.payload;
+      state.days[dayIndex].activities.push(activity);
     },
     removeActivity(state, action) {
-      const { dayIndex, activityIndex } = action.payload
-      state.days[dayIndex].activities.splice(activityIndex, 1) // удаляем мероприятие из конкретного дня
+      const { dayIndex, activityIndex } = action.payload;
+      state.days[dayIndex].activities.splice(activityIndex, 1);
     },
   },
 })
 
-export const { addDay, removeDay, addActivity, removeActivity } = tripSlice.actions
+export const { initializeDays, addDay, removeDay, addActivity, removeActivity } = tripSlice.actions
 
 export default tripSlice.reducer
+
