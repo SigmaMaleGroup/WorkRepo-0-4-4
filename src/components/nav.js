@@ -26,13 +26,13 @@ function Nav () {
     const renderSelectedCard = () => {
         switch (selectedCardId) {
             case '0':
-                return <MapCard1 number={'0'}/>
+                return <MapCard1 number={0}/>
             case '1':
-                return <MapCard2 number={'1'}/>
+                return <MapCard2 number={1}/>
             case '2':
-                return <MapCard3 number={'2'}/>
+                return <MapCard3 number={2}/>
             case '3':
-                return <MapCard4 number={'3'}/>
+                return <MapCard4 number={3}/>
             default:
                 return null;
         }

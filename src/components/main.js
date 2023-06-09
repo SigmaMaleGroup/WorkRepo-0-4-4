@@ -54,9 +54,9 @@ function Main ({ app, onShowMainPage}) {
             var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
             var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
             var randomDays = tours[randomIndex]?.dictionary_data?.days || '';
-            var img_id = '62a1aa9ab076bd79ea7a45a3.jpeg';
+            var img_id = tours[randomIndex]?.dictionary_data?.image_detailed_page_main?.source?.id || '62a1e09237e5f4efd4a758d2' + '.jpeg';
             const storage = getStorage();
-            const imageRef = ref(storage, `images/${img_id}`);
+            const imageRef = ref(storage, `${img_id}`);
             const imgUrl = await getDownloadURL(imageRef);
 
             indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords])
@@ -208,7 +208,6 @@ function Main ({ app, onShowMainPage}) {
                             ) : (
                                 <div>Loading...</div>
                             )}
-                            <MainCard />
                         </div>
                         {/* <MainCard onShowMoney={props.onShowMoney} /> прокидываем функцию дальше */}
                     </div>

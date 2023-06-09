@@ -60,20 +60,19 @@ function MainPage () {
           const tours = await getTours(db, r, i1, i2, i3);
           var indeces = []
           for (var i = 0; i < tours.length; i++){
-            var randomIndex = Math.floor(Math.random() * tours.length);
-            var city_id = tours[randomIndex]?.dictionary_data?.city || '';
+            var city_id = tours[i]?.dictionary_data?.city || '';
             const city_data = await getCity(db, city_id);
-            var randomCity = city_data[0];
-            var randomCoords = city_data[1];
-            var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
-            var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
-            var randomDays = tours[randomIndex]?.dictionary_data?.days || '';
-            var img_id = '62a1aa9ab076bd79ea7a45a3.jpeg';
+            var City = city_data[0];
+            var Coords = city_data[1];
+            var Title = tours[i]?.dictionary_data?.title || '';
+            var Price = tours[i]?.dictionary_data?.price || '';
+            var Days = tours[i]?.dictionary_data?.days || '';
+            var img_id = tours[i]?.dictionary_data?.image_detailed_page_main?.source?.id || '62a1e09237e5f4efd4a758d2' + '.jpeg';
             const storage = getStorage();
-            const imageRef = ref(storage, `images/${img_id}`);
+            const imageRef = ref(storage, `${img_id}`);
             const imgUrl = await getDownloadURL(imageRef);
 
-            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords])
+            indeces.push([Title, City, Price, Days, imgUrl, Coords])
           }
     
           setTour(indeces);
@@ -103,13 +102,18 @@ function MainPage () {
       async function getTours(db, r, i1, i2, i3) {
         console.log(r, i1, i2, i3);
         const toursCol = collection(db, 'tours');
-        const querySnapshot = await where(toursCol, "style", "==", i1).get();
-        let docs = []
-        querySnapshot.forEach(doc => {
-            docs.push(doc.data());
-          });
-        return docs;
-      }
+        const q = query(
+            toursCol,
+            where('part', '==', r),
+            where('style', '==', i1),
+            where('place', '==', i2),
+            where('food', '==', i3)
+        );
+        const tourSnapshot = await getDocs(q);
+        const tourList = tourSnapshot.docs.map(doc => doc.data());
+        console.log(tourList)
+        return tourList;
+    }
 
     return (
         <div className="bg-[#F1E4CF]">
