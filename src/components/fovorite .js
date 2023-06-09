@@ -11,13 +11,30 @@ import fvimg6 from '../image/fvimg6.png'
 import { useSelector } from "react-redux";
 import { getFirestore, collection, getDocs, query, where} from 'firebase/firestore';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { initializeApp } from "firebase/app";
 
-function Favorite (props, app) {
+function Favorite (props) {
     const [activeButton, setActiveButton] = useState(1);
 
     const handleButtonClick = (buttonNumber) => {
         setActiveButton(buttonNumber);
     }
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCPvQYAYMgiBeARPSWh3R59Zpxcm_X7bqk",
+        authDomain: "russpassds.firebaseapp.com",
+        databaseURL: "https://russpassds-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "russpassds",
+        storageBucket: "russpassds.appspot.com",
+        messagingSenderId: "978797123770",
+        appId: "1:978797123770:web:6d8d8a0caf4f598f718a83",
+        measurementId: "G-WQ192CXM64"
+      };
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
 
     const favoriteTripIds = useSelector(state => state.favorites.tripIds);
 

@@ -62,7 +62,12 @@ function Main ({ app, onShowMainPage}) {
             console.log(tours[randomIndex]?._id['$oid'])
             indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords, tourID])
           }
-    
+          if (!tours[randomIndex]?._id['$oid']) {
+            console.log('tourID is not defined');
+          } else {
+            console.log(`tourID: ${tours[randomIndex]?._id['$oid']}`);
+          }
+                    
           setTour(indeces);
         };
     

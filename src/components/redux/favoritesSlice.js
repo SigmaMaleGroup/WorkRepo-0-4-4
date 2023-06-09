@@ -4,13 +4,13 @@ const initialState = { trips: [], activities: [] }
 
 const favoritesSlice = createSlice({
   name: 'favorites',
-  initialState,
+  initialState: { tripIds: [], activities: [] },
   reducers: {
     addTrip(state, action) {
-      state.trips.push(action.payload.id)
-    },    
+      state.tripIds.push(action.payload.id)
+    },
     removeTrip(state, action) {
-      state.tripIds = state.tripIds.filter(id => id !== action.payload);
+      state.tripIds = state.tripIds.filter(id => id !== action.payload.id);
     },
     addActivity(state, action) {
       state.activities.push(action.payload)
@@ -20,6 +20,7 @@ const favoritesSlice = createSlice({
     },
   },
 })
+
 
 export const { addTrip, removeTrip, addActivity, removeActivity } = favoritesSlice.actions
 
