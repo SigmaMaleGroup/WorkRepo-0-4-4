@@ -60,19 +60,28 @@ function MainPage () {
           const tours = await getTours(db, r, i1, i2, i3);
           var indeces = []
           for (var i = 0; i < tours.length; i++){
-            var city_id = tours[i]?.dictionary_data?.city || '';
+            var city_id = tours[i]?.city || '';
             const city_data = await getCity(db, city_id);
             var City = city_data[0];
             var Coords = city_data[1];
-            var Title = tours[i]?.dictionary_data?.title || '';
-            var Price = tours[i]?.dictionary_data?.price || '';
-            var Days = tours[i]?.dictionary_data?.days || '';
-            var img_id = tours[i]?.dictionary_data?.image_detailed_page_main?.source?.id || '62a1e09237e5f4efd4a758d2' + '.jpeg';
+            var Title = tours[i]?.title || '';
+            var Route = tours[i]?.route || [];
+            var Price = tours[i]?.price || '';
+            var Days = tours[i]?.days || '';
+            var img_id = tours[i]?.image + '.jpeg'
+            var img_def = '62a1e09237e5f4efd4a758d2' + '.jpeg';
             const storage = getStorage();
-            const imageRef = ref(storage, `${img_id}`);
+            const imageRef = ref(storage, `${img_def}`);
+            try{
+                imageRef = ref(storage, `${img_id}`);
+            }
+            catch(err){
+                console.log(err)
+            }
             const imgUrl = await getDownloadURL(imageRef);
+            const tourID = tours[i]?.id;
 
-            indeces.push([Title, City, Price, Days, imgUrl, Coords])
+            indeces.push([Title, City, Price, Days, imgUrl, Coords, tourID, Route])
           }
     
           setTour(indeces);
@@ -101,10 +110,10 @@ function MainPage () {
 
       async function getTours(db, r, i1, i2, i3) {
         console.log(r, i1, i2, i3);
-        const toursCol = collection(db, 'tours');
+        const toursCol = collection(db, 'packages');
         const q = query(
             toursCol,
-            where('part', '==', r),
+            where('region', '==', r),
             where('style', '==', i1),
             where('place', '==', i2),
             where('food', '==', i3)
@@ -188,7 +197,7 @@ function MainPage () {
                 <div className="ml-[24px] h-[2601px] w-[904px] bg-[#FFFBF3] rounded-[50px]">
                     <h1 className="text-[32px] font-semibold h-[123px] pt-[48px] ml-[48px]">Направления по запросу: Москва</h1>
                     <div className="flex flex-col items-center justify-center">
-                        <div className="flex flex-wrap justify-between w-[805px] h-[2380px]">
+                        <div className="flex flex-wrap items-start justify-between w-[805px] h-[2380px]">
                         {tour.length > 0 ? (
                                 Array.from({ length: tour.length }, (_, index) => (
                                     <MainCard 
@@ -198,6 +207,8 @@ function MainPage () {
                                         maincardday={tour[index][3]}
                                         maincardimg={tour[index][4]}
                                         maincardcoord={tour[index][5]}
+                                        maincardid={tour[index][6]}
+                                        maincardroute={tour[index][7]}
                                     />
                                 ))
                             ) : (

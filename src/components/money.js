@@ -24,7 +24,7 @@ class YandexMap extends Component {
       const {ymaps} = window;
       ymaps.ready().then(() => {
         this.map = new ymaps.Map("map", {
-          center: this.props.data, // Coordinates for Moscow, change to your desired location
+          center: this.props.data[0].coord, // Coordinates for Moscow, change to your desired location
           zoom: 7
         });
       });
@@ -45,7 +45,8 @@ function Plan() {
     const data = location.state?.data;
     const dispatch = useDispatch()
     const days = useSelector((state) => state.trip.days)
-    console.log(data)
+    let route = data[0].route
+    const planArrays = route.map(obj => obj.plan)
 
     const handleAddDay = () => {
         dispatch(addDay())
@@ -75,9 +76,9 @@ function Plan() {
                 <div className="flex w-[1440px]">
                     <div className="mt-[60px] mr-[24px]">
                         <div className="h-[104px] ml-[30px] w-[678px] ">
-                            <div className="flex items-center justify-between h-[48px]">
+                            <div className="flex h-[48px]">
                                 <button><img src={arrow} /></button>
-                                <h1 className="right-[115px] relative text-[32px] font-semibold">Нижний Новгород</h1>
+                                <h1 className="text-[32px] flex justify- font-semibold">{data[0].city}</h1>
                                 <div className="relative">
                                     <button className="mt-[11px]" onClick={() => setShowMore(!showMore)}><img src={more} /></button>
                                     {showMore && <div ref={moreRef}><More1 handleAddDay={handleAddDay} /></div>}
@@ -91,7 +92,7 @@ function Plan() {
                             </div>
                             <div className="min-h-[730px] w-[600px] ml-[108px]">
                                 {days.map((day, index) => (
-                                    <PlanDay key={index} day={day} handleAddDay={handleAddDay} handleRemoweDay={handleRemoweDay} />
+                                    <PlanDay index={index} day={day} handleAddDay={handleAddDay} handleRemoweDay={handleRemoweDay}/>
                                 ))}
                             </div>
                             <div className="h-[371px] w-[608px] mt-[39px] ml-[120px]">

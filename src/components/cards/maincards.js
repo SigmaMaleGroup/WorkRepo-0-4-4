@@ -17,7 +17,7 @@ function MoneyButton(props) {
 
     useEffect(() => {
         // code to fetch or create your data
-        setData(props.coord); // replace this with your actual data
+        setData([props]); // replace this with your actual data
     }, []);
 
     const pushToMoney = () => {
@@ -33,7 +33,7 @@ function MoneyButton(props) {
     );
 }
 
-function MainCard (props, tourID) {
+function MainCard (props) {
     // Используем состояние для отслеживания того, отображается ли компонент Money
         const dispatch = useDispatch()
 
@@ -86,10 +86,10 @@ function MainCard (props, tourID) {
                     </div>
                     <div className="flex justify-start items-center mt-[23px] ml-[2px]">
                         <button className="bg-[#FFCF08] w-[334px] h-[48px] rounded-l-[20px] rounded-r-[4px] font-roboto font-medium">
-                            <MoneyButton price={props.maincardprice} day={props.maincardday} wDay={wordDay} coord={props.maincardcoord}/>
+                            <MoneyButton price={props.maincardprice} day={props.maincardday} wDay={wordDay} coord={props.maincardcoord} city = {props.maincardsity} tour_id = {props.maincardid} route = {props.maincardroute}/>
                         </button>
                         <button className="items-center ml-[2px] h-[48px] w-[48px] bg-[#FAEFDB] rounded-r-[20px] rounded-l-[4px]"
-                            onClick={() => dispatch(addTrip({id: tourID}))}>
+                            onClick={() => dispatch(addTrip({id: props.tourID}))}>
                             <img className="ml-[12px]" src={heart} />
                         </button>
                     </div>

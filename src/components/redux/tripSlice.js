@@ -7,7 +7,7 @@ const tripSlice = createSlice({
   initialState,
   reducers: {
     addDay(state) {
-      state.days.push({ activities: [] }) // добавляем новый день с пустым списком мероприятий
+      state.days.push({ activities: ['penis'] }) // добавляем новый день с пустым списком мероприятий
     },
     removeDay(state, action) {
       state.days.splice(action.payload, 1) // удаляем день по индексу

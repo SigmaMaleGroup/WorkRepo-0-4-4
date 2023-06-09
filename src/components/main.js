@@ -47,25 +47,27 @@ function Main ({ app, onShowMainPage}) {
           var indeces = []
           for (var i = 0; i < 6; i++){
             var randomIndex = Math.floor(Math.random() * tours.length);
-            var city_id = tours[randomIndex]?.dictionary_data?.city || '';
+            var city_id = tours[randomIndex]?.city || '';
             const city_data = await getCity(db, city_id);
             var randomCity = city_data[0];
             var randomCoords = city_data[1];
-            var randomTitle = tours[randomIndex]?.dictionary_data?.title || '';
-            var randomPrice = tours[randomIndex]?.dictionary_data?.price || '';
-            var randomDays = tours[randomIndex]?.dictionary_data?.days || '';
-            var img_id = tours[randomIndex]?.dictionary_data?.image_detailed_page_main?.source?.id || '62a1e09237e5f4efd4a758d2' + '.jpeg';
+            var randomTitle = tours[randomIndex]?.title || '';
+            var randomPrice = tours[randomIndex]?.price || '';
+            var randomDays = tours[randomIndex]?.days || '';
+            var img_id = tours[randomIndex]?.image + '.jpeg'
+            var img_def = '62a1e09237e5f4efd4a758d2' + '.jpeg';
             const storage = getStorage();
-            const imageRef = ref(storage, `${img_id}`);
+            const imageRef = ref(storage, `${img_def}`);
+            try{
+                imageRef = ref(storage, `${img_id}`);
+            }
+            catch(err){
+                console.log(err)
+            }
             const imgUrl = await getDownloadURL(imageRef);
-            const tourID = tours[randomIndex]?._id['$oid'];
-            console.log(tours[randomIndex]?._id['$oid'])
+            const tourID = tours[randomIndex]?.id;
+            console.log(tours[randomIndex]?.id)
             indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords, tourID])
-          }
-          if (!tours[randomIndex]?._id['$oid']) {
-            console.log('tourID is not defined');
-          } else {
-            console.log(`tourID: ${tours[randomIndex]?._id['$oid']}`);
           }
                     
           setTour(indeces);
@@ -93,7 +95,7 @@ function Main ({ app, onShowMainPage}) {
       }
 
     async function getTours(db) {
-        const toursCol = collection(db, 'tours');
+        const toursCol = collection(db, 'packages');
         const tourSnapshot = await getDocs(toursCol);
         const tourList = tourSnapshot.docs.map(doc => doc.data());
         return tourList;

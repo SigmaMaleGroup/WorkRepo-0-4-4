@@ -9,11 +9,12 @@ import More3 from "../more/more3";
 import More4 from "../more/more4";
 
 
-function PlanDay({handleAddDay, handleRemoweDay}) {
+function PlanDay({index, day, handleAddDay, handleRemoweDay}) {
     const [showMore, setShowMore] = useState(false);
     const [showMore4, setShowMore4] = useState(false);
     const moreRef = useRef();
     const more4Ref = useRef();
+    console.log(day)
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -34,7 +35,7 @@ function PlanDay({handleAddDay, handleRemoweDay}) {
     return (
         <div className="min-h-[171px] font-proto">
             <div className="h-[72px] flex justify-between items-end pb-[12px]">
-                <h1 className="text-[20px] font-semibold">1 день</h1>
+                <h1 className="text-[20px] font-semibold"> {index} {day.activities[0]} день</h1>
                 <div className="relative">
                     <button className="h-[20px] mr-[25px]" onClick={() => setShowMore(!showMore)}><img src={add} /></button>
                     <button className="h-[20px]" onClick={() => setShowMore4(!showMore4)}><img src={more} /></button>
