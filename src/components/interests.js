@@ -73,7 +73,7 @@ function Interests(props) {
                     </div>
                     <div className="">
                         <div className="ml-[48px] mt-[40px]">
-                            <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Где будите кушать?</h1>
+                            <h1 className="font-proto text-[36px] leading-[45px] font-semibold ">Где будете кушать?</h1>
                         </div>
                         <div className="flex mt-[40px] ml-[48px] mr-[48px] flex justify-between">
                             <InterestsCard img={it7} buttonname="Кафе" buttonIndex={0} onButtonClick={handleButtonClick3} selected={selectedButton3 === 0} />

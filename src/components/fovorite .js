@@ -130,11 +130,11 @@ function Favorite (props) {
                 {activeButton === 1 && (
                     <div className="mt-[40px] w-[1224px] h-[974px] flex flex-wrap justify-between items-between">
                         <FavoriteCadrd header="Все места" paragraf="100 мест" fvbutton="Посмотреть все" fvimgmane={fvimg1}/>
-                        <FavoriteCadrd header="Оренбург" paragraf="2 дня, 3 места" fvbutton="Спанировать поездку" fvimgmane={fvimg2}/>
-                        <FavoriteCadrd header="Алтай" paragraf="2 дня, 3 места" fvbutton="Спанировать поездку" fvimgmane={fvimg3}/>
-                        <FavoriteCadrd header="Казань" paragraf="2 дня, 3 места" fvbutton="Спанировать поездку" fvimgmane={fvimg4}/>
-                        <FavoriteCadrd header="Тюмень" paragraf="2 дня, 3 места" fvbutton="Спанировать поездку" fvimgmane={fvimg5}/>
-                        <FavoriteCadrd header="Воронеж" paragraf="2 дня, 3 места" fvbutton="Спанировать поездку" fvimgmane={fvimg6}/>
+                        <FavoriteCadrd header="Оренбург" paragraf="2 дня, 3 места" fvbutton="Спланировать поездку" fvimgmane={fvimg2}/>
+                        <FavoriteCadrd header="Алтай" paragraf="2 дня, 3 места" fvbutton="Спланировать поездку" fvimgmane={fvimg3}/>
+                        <FavoriteCadrd header="Казань" paragraf="2 дня, 3 места" fvbutton="Спланировать поездку" fvimgmane={fvimg4}/>
+                        <FavoriteCadrd header="Тюмень" paragraf="2 дня, 3 места" fvbutton="Спланировать поездку" fvimgmane={fvimg5}/>
+                        <FavoriteCadrd header="Воронеж" paragraf="2 дня, 3 места" fvbutton="Спланировать поездку" fvimgmane={fvimg6}/>
                     </div>
                 )}
                 {activeButton === 2 && (
@@ -153,8 +153,8 @@ function Favorite (props) {
 
                 {activeButton === 3 && (
                     <div className="mt-[40px] w-[1224px] h-[974px] flex flex-wrap justify-between items-between">
-                        <FavoriteCadrd header="ббВсе места" paragraf="100 мест" fvbutton="Посмотреть" fvimgmane={fvimg1}/>
-                        <FavoriteCadrd header="ббОренбург" paragraf="2 дня, 3 места" fvbutton="Посмотреть" fvimgmane={fvimg2}/>
+                        <FavoriteCadrd header="Все места" paragraf="100 мест" fvbutton="Посмотреть" fvimgmane={fvimg1}/>
+                        <FavoriteCadrd header="Оренбург" paragraf="2 дня, 3 места" fvbutton="Посмотреть" fvimgmane={fvimg2}/>
                         <FavoriteCadrd header="Алтай" paragraf="2 дня, 3 места" fvbutton="Посмотреть" fvimgmane={fvimg3}/>
                         <FavoriteCadrd header="Казань" paragraf="2 дня, 3 места" fvbutton="Посмотреть" fvimgmane={fvimg4}/>
                         <FavoriteCadrd header="Тюмень" paragraf="2 дня, 3 места" fvbutton="Посмотреть" fvimgmane={fvimg5}/>
