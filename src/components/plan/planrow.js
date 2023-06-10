@@ -20,15 +20,13 @@ function PlanRow(props) {
     }, []);
 
     return (
-        <div className="h-[98px] w-[600px] flex font-proto relative">
+        <div className="min-h-[65px] mb-[10px] w-[640px] flex font-roboto relative">
             <div className="w-[576px] flex items-center">
                 <div>
-                    <img src={props.img} />
+                    •
                 </div>
                 <div className="ml-[16px]">
-                    <p className="text-[14px] font-semibold text-[#959595]">{props.time}&nbsp;&nbsp;{props.type}&nbsp;&nbsp;{props.timestart}</p>
-                    <p className="text-[16px] font-semibold ">{props.name}</p>
-                    <p className="text-[16px] font-semibold text-[#959595]">{props.adress}</p>
+                    <p className="text-[16px] font-medium ">{props.activity}</p>
                 </div>
             </div>
             <div>

@@ -8,7 +8,9 @@ import support from '../icons/support.png'
 import favorite from '../icons/favorite.png'
 import profile from '../icons/profile.png'
 import { Link } from "react-router-dom";
-function Header () {
+
+
+function Header ({isRegistered}) {
 
 
     return(
@@ -23,7 +25,7 @@ function Header () {
                 <div className="flex w-[603px] items-center justify-between font-medium text-[20px] ">
                     <button className="flex items-center font-proto font-semibold text-[16px] mx-[13px] "> <img src={rus} className="rounded-[10px] h-[24px] mr-[8px]" /> РУС / RUB</button>
                     <button className="flex items-center font-proto font-semibold text-[16px] mx-[13px] "><img src={support}  className="mr-[8px]"/>Поддержка</button>
-                    <button className="flex items-center font-proto font-semibold text-[16px] mx-[13px] "><img src={favorite}  className="mr-[8px]"/><Link to="/favorite">Избранное</Link></button>
+                    {isRegistered && <button className="flex items-center font-proto font-semibold text-[16px] mx-[13px] "><img src={favorite}  className="mr-[8px]"/><Link to="/favorite">Избранное</Link></button>}
                     <button className="flex items-center font-proto font-semibold text-[16px] mx-[13px] "><img src={profile}  className="mr-[8px]"/>Профиль</button>
                 </div>
             </div>

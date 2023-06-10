@@ -68,10 +68,10 @@ function MainPage () {
             var Route = tours[i]?.route || [];
             var Price = tours[i]?.price || '';
             var Days = tours[i]?.days || '';
-            var img_id = tours[i]?.image + '.jpeg'
+            var img_id ='photo/' + tours[i]?.image + '.jpeg'
             var img_def = '62a1e09237e5f4efd4a758d2' + '.jpeg';
             const storage = getStorage();
-            const imageRef = ref(storage, `${img_def}`);
+            let imageRef = ref(storage, `${img_def}`);
             try{
                 imageRef = ref(storage, `${img_id}`);
             }
@@ -195,9 +195,9 @@ function MainPage () {
                     </div>
                 </div>
                 <div className="ml-[24px] h-[2601px] w-[904px] bg-[#FFFBF3] rounded-[50px]">
-                    <h1 className="text-[32px] font-semibold h-[123px] pt-[48px] ml-[48px]">Направления по запросу: Москва</h1>
+                    <h1 className="text-[32px] font-semibold h-[123px] pt-[48px] ml-[48px]">Направления по вашему запросу</h1>
                     <div className="flex flex-col items-center justify-center">
-                        <div className="flex flex-wrap items-start justify-between w-[805px] h-[2380px]">
+                        <div className="flex flex-wrap items-start content-start justify-between w-[805px] h-[2380px]">
                         {tour.length > 0 ? (
                                 Array.from({ length: tour.length }, (_, index) => (
                                     <MainCard 

@@ -56,7 +56,7 @@ function MainCard (props) {
       
 
     return (
-            <div className="bg-[#FFFBF3] w-[392px] h-[560px] rounded-[20px] border-[2px] border-[#FAEFDB]">
+            <div className="bg-[#FFFBF3] w-[392px] h-[560px] rounded-[20px] border-[2px] border-[#FAEFDB] mb-[30px]">
                 <div className="flex flex-col">
                     <div className="h-[286px] ">
                         <img className="h-[286px] w-[384px] m-[2px]  rounded-[15px]" src={props.maincardimg}/>

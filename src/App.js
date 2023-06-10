@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/header';
@@ -21,7 +21,25 @@ function ScrollToTop() {
   return null;
 }
 
+
+
 function App() {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
+
+  const handleCloseModal = () => {
+    setModalIsOpen(false);
+  }
+
+  const handleRegisteredClick = () => {
+    setIsRegistered(true);
+    handleCloseModal();
+  }
+
+  const handleUnregisteredClick = () => {
+    setIsRegistered(false);
+    handleCloseModal();
+  }
 
   const firebaseConfig = {
     apiKey: "AIzaSyCPvQYAYMgiBeARPSWh3R59Zpxcm_X7bqk",
@@ -42,10 +60,10 @@ function App() {
       <div className="m-0 p-0 ">
         <Routes>
           <Route path="/interests" element={<Interests />} />
-          <Route path="/money" element={<Plan />} />
+          <Route path="/money" element={<Plan isRegistered={isRegistered} />} />
           <Route path="/mainpage" element={<MainPage />} />
-          <Route path="/favorite" element={<Favorite app={app} />} />
-          <Route path="/" element={<Main app={app}/>} /> {/* The component shown when no other routes match */}
+          <Route path="/favorite" element={<Favorite app={app} isRegistered={isRegistered} />} />
+          <Route path="/" element={<Main app={app} isRegistered={isRegistered} modalIsOpen={modalIsOpen} handleRegisteredClick={handleRegisteredClick} handleUnregisteredClick={handleUnregisteredClick}/>} /> {/* The component shown when no other routes match */}
         </Routes>
       </div>
     </Router>

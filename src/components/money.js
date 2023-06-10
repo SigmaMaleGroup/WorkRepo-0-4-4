@@ -13,6 +13,7 @@ import { useDispatch } from 'react-redux'
 import { addDay, removeDay } from './redux/tripSlice'
 import { useSelector } from 'react-redux'
 import { initializeDays } from './redux/tripSlice';
+import Pay from "./pay";
 
 class YandexMap extends Component {
     map = null;
@@ -37,31 +38,56 @@ class YandexMap extends Component {
       );
     }
   }
+
+class ReturnPay extends Component {
+    render() {
+        console.log(this.props.isRegistered)
+        if (this.props.isRegistered == true) {
+            return (<button className='h-[50px] w-[224px] bg-[#FFCF08] rounded-[20px] text-[22px] font-roboto font-semibold   ' onClick={() => this.props.setShowPay(true)}>Оплатить</button>);
+          } else {
+            return null; // или можно вернуть другое значение, если переменная не равна true
+          }
+      }
+  }
   
 
-function Plan() {
+function Plan(props) {
+    const [showPay, setShowPay] = useState(false);
+    const isRegistered = props.isRegistered;
+    console.log(isRegistered)
     const [showMore, setShowMore] = useState(false);
     const moreRef = useRef();
+    const payRef = useRef();
     const location = useLocation();
     const data = location.state?.data;
     const dispatch = useDispatch()
     const days = useSelector((state) => state.trip.days)
     let route = data[0].route
     const planArrays = route.map(obj => obj.plan)
-    console.log(planArrays)
+    console.log(data)
 
     const handleAddDay = () => {
         dispatch(addDay())
       }
 
-    const handleRemoweDay = () => {
-        dispatch(removeDay())
-    }
 
     useEffect(() => {
         function handleClickOutside(event) {
             if (moreRef.current && !moreRef.current.contains(event.target)) {
                 setShowMore(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (payRef.current && !payRef.current.contains(event.target)) {
+                setShowPay(false);
             }
         }
 
@@ -83,11 +109,15 @@ function Plan() {
                     <div className="mt-[60px] mr-[24px]">
                         <div className="h-[104px] ml-[30px] w-[678px] ">
                             <div className="flex h-[48px]">
-                                <button><img src={arrow} /></button>
-                                <h1 className="text-[32px] flex justify- font-semibold">{data[0].city}</h1>
-                                <div className="relative">
-                                    <button className="mt-[11px]" onClick={() => setShowMore(!showMore)}><img src={more} /></button>
-                                    {showMore && <div ref={moreRef}><More1 handleAddDay={handleAddDay} /></div>}
+                                <div className="flex justify-center items-center">
+                                    <button><img src={arrow} /></button>
+                                </div>
+                                <div className="flex justify-between items-center w-[608px] ml-[50px]">
+                                    <h1 className="text-[32px] flex justify- font-semibold">{data[0].city}</h1>
+                                    <div className="relative">
+                                        <button className="mt-[11px]" onClick={() => setShowMore(!showMore)}><img src={more} /></button>
+                                        {showMore && <div ref={moreRef}><More1 handleAddDay={handleAddDay} /></div>}
+                                    </div>
                                 </div>
                             </div>
                                 <div className="h-[56px] flex items-end text-[16px] font-semibold ml-[78px]">
@@ -98,7 +128,7 @@ function Plan() {
                             </div>
                             <div className="min-h-[730px] w-[600px] ml-[108px]">
                                 {days.map((day, index) => (
-                                    <PlanDay index={index} day={day} handleAddDay={handleAddDay} handleRemoweDay={handleRemoweDay}/>
+                                    <PlanDay index={index} day={day} handleAddDay={handleAddDay} dispatch={dispatch} />
                                 ))}
                             </div>
                             <div className="h-[371px] w-[608px] mt-[39px] ml-[120px]">
@@ -127,6 +157,8 @@ function Plan() {
                                         <button className="flex "><img className="mr-[12px]" src={add} />Добавить день</button>
                                     </div>
                                 </div>
+                                <ReturnPay isRegistered={isRegistered} setShowPay={setShowPay} />
+                                {showPay && <div ref={payRef}><Pay price={data[0].price}/></div>}
                             </div>
                         </div>
                         <div className="relative h-[600px] w-[600px] mt-[44px]">
@@ -141,3 +173,4 @@ function Plan() {
 
 export default Plan;
 export { YandexMap };
+export { ReturnPay };

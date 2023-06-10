@@ -30,6 +30,7 @@ import Banner from "./banner";
 import Footer from "./footer";
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import { getFirestore, collection, getDocs, query, where} from 'firebase/firestore';
+import Register from "./register";
 
 
 function classNames(...classes) {
@@ -37,7 +38,7 @@ function classNames(...classes) {
 }
 
 
-function Main ({ app, onShowMainPage}) {
+function Main ({ app, isRegistered, handleRegisteredClick, handleUnregisteredClick,handleCloseModal, modalIsOpen }) {
     const [tour, setTour] = useState([]);
     
     useEffect(() => {
@@ -51,13 +52,14 @@ function Main ({ app, onShowMainPage}) {
             const city_data = await getCity(db, city_id);
             var randomCity = city_data[0];
             var randomCoords = city_data[1];
+            var Route = tours[randomIndex]?.route || [];
             var randomTitle = tours[randomIndex]?.title || '';
             var randomPrice = tours[randomIndex]?.price || '';
             var randomDays = tours[randomIndex]?.days || '';
-            var img_id = tours[randomIndex]?.image + '.jpeg'
-            var img_def = '62a1e09237e5f4efd4a758d2' + '.jpeg';
+            var img_id = 'photo/' + tours[randomIndex]?.image + '.jpeg'
+            var img_def ='62a1e09237e5f4efd4a758d2' + '.jpeg';
             const storage = getStorage();
-            const imageRef = ref(storage, `${img_def}`);
+            let imageRef = ref(storage, `${img_def}`);
             try{
                 imageRef = ref(storage, `${img_id}`);
             }
@@ -67,7 +69,7 @@ function Main ({ app, onShowMainPage}) {
             const imgUrl = await getDownloadURL(imageRef);
             const tourID = tours[randomIndex]?.id;
             console.log(tours[randomIndex]?.id)
-            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords, tourID])
+            indeces.push([randomTitle, randomCity, randomPrice, randomDays, imgUrl, randomCoords, tourID, Route])
           }
                     
           setTour(indeces);
@@ -137,11 +139,21 @@ function Main ({ app, onShowMainPage}) {
         setSelectedOption(option);
     }
 
-    // закрытие картоек
+    // регистрация
 
     return(
         <div>
-            <Header />
+            <Header isRegistered={isRegistered} />
+            <div>
+            {modalIsOpen && 
+        <Register 
+          handleRegisteredClick={handleRegisteredClick} 
+          handleUnregisteredClick={handleUnregisteredClick}
+          handleCloseModal={handleCloseModal}
+        />
+      }
+                {/* Your other code... */}
+            </div>
             <Banner />
             <div className="bg-cover bg-center min-h-[2000px] bg-[#F1E4CF] flex flex-col justify-center items-center font-suisse">
                 <div className=" flex bg-[#FFFBF3] w-[1320px] justify-center items-center h-[1480px] rounded-[48px]">
@@ -212,7 +224,8 @@ function Main ({ app, onShowMainPage}) {
                                         maincardday={tour[index][3]}
                                         maincardimg={tour[index][4]}
                                         maincardcoord={tour[index][5]}
-                                        tourID={tour[index][6]}
+                                        maincardid={tour[index][6]}
+                                        maincardroute={tour[index][7]}
                                     />
                                 ))
                             ) : (
